@@ -1,16 +1,21 @@
-const User = require("../model/user");
-const nodemailer = require("nodemailer");
-const crypto = require("crypto");
+import User from "../model/user.js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
 // const bcrypt = require("bcryptjs");
-require("dotenv").config();
-const jwt = require('jsonwebtoken');
-const courseData = require('../coursedata')
-const Frontend  =  require("../cbtdatafrontend");
-const frontendExamData = require("../cbtdatafrontend");
-const Course = require("../model/course");
-const Chat = require("../model/chat");
-const { v4: uuidv4 } = require('uuid');
+import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
+import courseData from '../coursedata.js';
+import Frontend  from "../cbtdatafrontend.js";
+import frontendExamData from "../cbtdatafrontend.js";
+import Course from "../model/course.js";
+import Chat from "../model/chat.js";
+import { v4 as uuidv4 } from 'uuid';
 
+dotenv.config();
+// utils
+import makeValidation from '@withvoid/make-validation';
+// models
+import UserModel, { USER_TYPES } from '../model/user.js';
 
 function calculateProgress(course) {
     const totalTopics = course.topics.length;
@@ -479,6 +484,8 @@ const uploadCourse = async(req, res)=>{
 }
 
 
+
+
 // Function to generate a unique examId
 const generateExamId = (userId) => {
     const examId = `${userId.toString()}-${uuidv4()}`;
@@ -486,8 +493,11 @@ const generateExamId = (userId) => {
   };
 
 
-module.exports =
-{
+
+
+
+  export default {
+
     getUserById,
     signUp, 
     logIn, 
@@ -502,7 +512,71 @@ module.exports =
     uploadCourse,
     createchat,
     examStart,
+    onGetAllUsers: async (req, res) => {
+      try {
+        const users = await UserModel.getUsers();
+        return res.status(200).json({ success: true, users });
+      } catch (error) {
+        return res.status(500).json({ success: false, error: error })
+      }
+    },
+    onGetUserById: async (req, res) => {
+      try {
+        const user = await UserModel.getUserById(req.params.id);
+        return res.status(200).json({ success: true, user });
+      } catch (error) {
+        return res.status(500).json({ success: false, error: error })
+      }
+    },
+    onCreateUser: async (req, res) => {
+      try {
+        const validation = makeValidation(types => ({
+          payload: req.body,
+          checks: {
+            firstName: { type: types.string },
+            lastName: { type: types.string },
+            type: { type: types.enum, options: { enum: USER_TYPES } },
+          }
+        }));
+        if (!validation.success) return res.status(400).json({ ...validation });
+  
+        const { firstName, lastName, type } = req.body;
+        const user = await UserModel.createUser(firstName, lastName, type);
+        return res.status(200).json({ success: true, user });
+      } catch (error) {
+        return res.status(500).json({ success: false, error: error })
+      }
+    },
+    onDeleteUserById: async (req, res) => {
+      try {
+        const user = await UserModel.deleteByUserById(req.params.id);
+        return res.status(200).json({ 
+          success: true, 
+          message: `Deleted a count of ${user.deletedCount} user.` 
+        });
+      } catch (error) {
+        return res.status(500).json({ success: false, error: error })
+      }
+    },
+  }
+
+// export default =
+// {
+//     getUserById,
+//     signUp, 
+//     logIn, 
+//     message, 
+//     updateUser, 
+//     requestPasswordReset, 
+//     resetPassword, 
+//     renderResetPasswordPage,
+//     getAllCourse,
+//     buyCourse,
+//     getExamFrontend,
+//     uploadCourse,
+//     createchat,
+//     examStart,
     
     
 
-};
+// };

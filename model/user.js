@@ -1,70 +1,91 @@
-const mongoose = require('mongoose');
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
+import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
-const userSchema = new mongoose.Schema({
-    fullname: {
-        type: String,
-        required: true
-    },
-    phoneNumber: {
-        type: Number,
-        required: true,
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
-    country: {
-        type: String,
-        required: true
-    },
-     
-    
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true,
+export const USER_TYPES = {
+  CONSUMER: "consumer",
+  SUPPORT: "support",
+};
 
+const userSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: String,
+      default: () => uuidv4().replace(/\-/g, ""),
     },
-    
-    notificationsCount: {
-        type: Number,
-        default: 0
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    resetToken: {
-        type: String,
-        default: null
-    },
-    resetTokenExpiry: {
-        type: Date,
-        default: null
-    },
+    firstName: String,
+    lastName: String,
+    type: String,
+  },
+  {
+    timestamps: true,
+    collection: "users",
+  }
+);
 
+/**
+ * @param {String} firstName
+ * @param {String} lastName
+ * @returns {Object} new user object created
+ */
+userSchema.statics.createUser = async function (firstName, lastName, type) {
+  try {
+    const user = await this.create({ firstName, lastName, type });
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
+/**
+ * @param {String} id, user id
+ * @return {Object} User profile object
+ */
+userSchema.statics.getUserById = async function (id) {
+  try {
+    const user = await this.findOne({ _id: id });
+    if (!user) throw ({ error: 'No user with this id found' });
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
-}, {
-    timestamps: true
-});
+/**
+ * @return {Array} List of all users
+ */
+userSchema.statics.getUsers = async function () {
+  try {
+    const users = await this.find();
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// Hash password before saving user
-// userSchema.pre('save', async function(next) {
-//     if (this.isModified('password') || this.isNew) {
-//         this.password = await bcrypt.hash(this.password, 10);
-//     }
-//     next();
-// });
+/**
+ * @param {Array} ids, string of user ids
+ * @return {Array of Objects} users list
+ */
+userSchema.statics.getUserByIds = async function (ids) {
+  try {
+    const users = await this.find({ _id: { $in: ids } });
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// // Method to compare hashed passwords
-// userSchema.methods.comparePassword = function(candidatePassword) {
-//     return bcrypt.compare(candidatePassword, this.password);
-// };
+/**
+ * @param {String} id - id of user
+ * @return {Object} - details of action performed
+ */
+userSchema.statics.deleteByUserById = async function (id) {
+  try {
+    const result = await this.remove({ _id: id });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
-
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model("User", userSchema);

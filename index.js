@@ -1,34 +1,25 @@
-const express = require("express");
+import express  from "express";
 const app = express();
-const swaggerjsdocs = require('swagger-jsdoc');
-const swaggerui = require("swagger-ui-express");
+import swaggerjsdocs from "swagger-jsdoc";
+import  swaggerui from "swagger-ui-express";
 const port = 3100;
-const bodyParser = require('body-parser');
-const cors = require("cors");
-const userRoutes = require('./routes/userroutes')
-const server = require("http").Server(app);
-const path = require("path")
-const io = require("socket.io")(server, {
-    cors: {
-      origin: '*'
-    }
-  });
-const {v4:uuidv4} = require("uuid")
+import  bodyParser from 'body-parser';
+import cors from "cors";
+import userRoutes from  "./routes/userroutes.js";
+import chatRoomRouter from "./routes/chatRooms.js";
+import path  from "path";
+import  WebSockets from  "./utils/websockets.js";
+import http from  "http";
+import socketio from "socket.io";
+import logger from "morgan";
 
 
-io.on("connection", (socket) => {
-    socket.on("join-room", (roomId, userId) => {
-      socket.join(roomId);
-      setTimeout(()=>{
-        socket.to(roomId).broadcast.emit("user-connected", userId);
-      }, 1000)
-    
-    socket.on("disconnect",() => {
-        console.log("User Disconnected");
-        io.emit("user-disconnected",userId)
-    })
-});
-  });
+
+/** Create HTTP server. */
+const server = http.createServer(app);
+/** Create socket connection */
+global.io = socketio.listen(server);
+global.io.on('connection', WebSockets.connection)
 
 
 const options = {
@@ -50,7 +41,7 @@ const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger
 
 const swaggerSpec = swaggerjsdocs(options);
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -66,13 +57,14 @@ app.use("/api-docs", swaggerui.serve, swaggerui.setup(swaggerSpec, {
     '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
 customCssUrl: CSS_URL,
 }));
-const {ExpressPeerServer} = require("peer");
+import {ExpressPeerServer} from "peer";
 const peerServer = ExpressPeerServer(server,{
     debug: true
 });
+app.use(logger("dev"));
 app.use("/peerjs",peerServer);
 app.set('view engine','ejs')
-app.set('views', path.join(__dirname, 'views')); 
+// app.set('views', path.join(__dirname, 'views')); 
 
 /**
  * @swagger
@@ -354,8 +346,22 @@ app.get('/', (req, res)=>{
 //     res.render("index",{roomId: req.params.room})
 // })
 
-server.listen(port, ()=>{
-    console.log(`server running at port http://localhost:${port}`)
+// app.listen(port, ()=>{
+//     console.log(`server running at port http://localhost:${port}`)
+// });
+
+/** catch 404 and forward to error handler */
+app.use('*', (req, res) => {
+  return res.status(404).json({
+    success: false,
+    message: 'API endpoint doesnt exist'
+  })
 });
 
-module.exports = app
+server.listen(port);
+/** Event listener for HTTP server "listening" event. */
+server.on("listening", () => {
+  console.log(`Listening on port:: http://localhost:${port}/`)
+});
+
+export default app

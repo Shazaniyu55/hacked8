@@ -1,5 +1,5 @@
 // models/Exam.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 
 const examSchema = new mongoose.Schema({

@@ -276,5 +276,4 @@ const frontendExamData = [
         ]
     }
 ];
-
-module.exports = frontendExamData;
+export default frontendExamData;

@@ -1,5 +1,5 @@
 // models/Question.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema({
     text: { type: String, required: true },
