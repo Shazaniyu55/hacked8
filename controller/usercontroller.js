@@ -8,7 +8,7 @@ import courseData from '../coursedata.js';
 import Frontend  from "../cbtdatafrontend.js";
 import frontendExamData from "../cbtdatafrontend.js";
 import Course from "../model/course.js";
-import Chat from "../model/chat.js";
+// import Chat from "../model/chat.js";
 import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();

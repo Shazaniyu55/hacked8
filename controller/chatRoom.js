@@ -2,7 +2,7 @@
 import makeValidation from '@withvoid/make-validation';
 // models
 import ChatRoomModel, { CHAT_ROOM_TYPES } from '../model/chatRoom.js';
-import ChatMessageModel from '../models/ChatMessage.js';
+import ChatMessageModel from '../model/ChatMessage.js';
 import UserModel from '../model/user.js';
 
 export default {
