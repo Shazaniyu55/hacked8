@@ -1,0 +1,297 @@
+
+
+*{
+    user-select: none;
+}
+
+
+
+.ham{
+    display: none;
+}
+.ham img{
+    width: 30px;
+    margin-left: 80%;
+}
+
+.loader{
+    position: fixed;
+    background-color: #0000006b;
+    width: 100%;
+    margin-top: -100px;
+    align-items: center;
+    justify-items: center;
+    height: 100vh;
+    padding: 150px 550px;
+    display: none;
+}
+.loader.active{
+    display: block;
+}
+.loader .goo{
+    width: 200px;
+    align-items: center;
+    justify-items: center;
+    animation: turn 0.9s infinite;
+}
+
+@keyframes turn{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    /* 50%{
+        transform: rotateZ(180deg);
+    } */
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+
+
+.all{
+    margin-top: 100px;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 1px 2px 25px -15px ;
+    padding: 30px 100px;
+}
+
+.all .headd{
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.all .section-headd{
+    width: 80px;
+    height: 4px;
+    background-color: #0964AD;
+}
+
+.all .twoption{
+    margin-top: 70px;
+    width: 100%;
+    display: flex;
+}
+.all .twoption div{
+    width: 45%;
+    height: 200px;
+    background-color: #F6F1EB;
+    border-radius: 30px;
+    padding: 20px 30px;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+}
+.all .twoption .option1.highlight,
+.all .twoption .option2.highlight{
+    background-color: #fde3c9;
+}
+.all .twoption div img{
+    width: 100px;
+    transition: all 0.5s ease-in-out;
+}
+.all .twoption div p{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.all .twoption .option1.active,
+.all .twoption .option2.active{
+    transition: all 0.1s ease-in-out;
+    background-color: #ff9000;
+}
+
+.all .twoption .option1 .free1{
+    display: block;
+}
+.all .twoption .option1 .free2{
+    display: none;
+}
+.all .twoption .option1 .free1.active{
+    display: none;
+}
+.all .twoption .option1 .free2.active{
+    display: block;
+}
+
+
+.all .twoption .option2{
+    margin-left: 30px;
+}
+
+
+
+.all .twoption .option2 .stud1{
+    display: block;
+}
+.all .twoption .option2 .stud2{
+    display: none;
+}
+.all .twoption .option2 .stud1.active{
+    display: none;
+}
+.all .twoption .option2 .stud2.active{
+    display: block;
+}
+
+
+
+.all .next{
+    width: 100%;
+    justify-items: center;
+    margin-top: 50px;
+    align-items: center;
+}
+.all .next img{
+    width: 30px;
+}
+.all .next button{
+    cursor: pointer;
+    border-radius: 50px;
+    display: flex;
+    width: 150px;
+    background-color: #F6F1EB;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 5px 30px;
+    padding-top: 10px;
+    transition: all 0.5s ease-in-out;
+}
+.all .next .nextp:hover{
+    background-color: #ff9000;
+}
+.all .next .nextp.active{
+    background-color: #ff9000;
+}
+.all .next .nextp.highlight{
+    background-color: #ff9000;
+}
+.all .next button .img{
+    margin-top: -5px;
+    margin-left: 30px;
+    background-color: #ffffff42;
+    padding: 5px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 799px){
+  
+    .ham{
+        display: block;
+    }
+
+
+    .loader{
+        width: 100%;
+    }
+}
+
+@media (min-width: 200px){
+
+    header{
+        padding: 0px;
+    }
+
+    .loader{
+        width: 100%;
+        padding: 250px  30%;
+    }
+    .loader .goo{
+        width: 70%;
+        max-width: 200px;
+        align-items: center;
+        justify-items: center;
+        animation: turn 0.9s infinite;
+    }
+
+    .all{
+        padding: 0px;
+        /* width: 100%; */
+        height: auto;
+        border-radius: 10px;
+        padding: 30px 10px;
+    }
+    .all .twoption{
+        display: block;
+    }
+    
+    .all .twoption div{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .all .twoption div img{
+        width: 50%;
+        max-width: 100px;
+        transition: all 0.5s ease-in-out;
+    }
+    .all .twoption .option2{
+        margin-left: 0px;
+    }
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 400px){
+
+
+
+
+
+    .all{
+        padding: 30px 50px;
+    }
+}
+
+
+
+@media (min-width: 600px){
+
+
+
+
+
+    .all{
+        padding: 30px 20px;
+    }
+
+    .all .twoption{
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        width: auto;
+    }
+    
+    .all .twoption div{
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .all .twoption .option2{
+        margin-left: 30px;
+    }
+}
+
+
+
+

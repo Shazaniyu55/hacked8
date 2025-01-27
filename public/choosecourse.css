@@ -1,0 +1,318 @@
+
+
+*{
+    user-select: none;
+}
+
+
+.ham{
+    display: none;
+}
+.ham img{
+    width: 30px;
+    margin-left: 80%;
+}
+
+.all{
+    margin-top: 100px;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 1px 2px 25px -15px ;
+    padding: 30px 80px;
+}
+
+.all .headd{
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.all .section-headd{
+    width: 80px;
+    height: 4px;
+    background-color: #0964AD;
+}
+
+.all .courseoption{
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: red; */
+}
+.all .courseoption div{
+    width: 220px;
+    height: 180px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    background-color: #F6F1EB;
+    border-radius: 10px;
+    align-items: center;
+    justify-items: center;
+    padding: 20px 0px;
+    cursor: pointer;
+}
+.all .courseoption div:hover{
+    background-color: #fde3c9;
+}
+.all .courseoption .dcourse1.active,
+.all .courseoption .dcourse2.active,
+.all .courseoption .dcourse3.active,
+.all .courseoption .dcourse4.active,
+.all .courseoption .dcourse5.active,
+.all .courseoption .dcourse6.active{
+    background-color: #ff9000;
+}
+.all .courseoption div img{
+    width: 70px;
+}
+
+.all .courseoption div .dc11,
+.all .courseoption div .dc21,
+.all .courseoption div .dc31,
+.all .courseoption div .dc41,
+.all .courseoption div .dc51,
+.all .courseoption div .dc61{
+    display: block;
+}
+
+.all .courseoption div .cd12,
+.all .courseoption div .cd22,
+.all .courseoption div .cd32,
+.all .courseoption div .cd42,
+.all .courseoption div .cd52,
+.all .courseoption div .cd62{
+    display: none;
+}
+
+
+
+.all .courseoption div .dc11.active,
+.all .courseoption div .dc21.active,
+.all .courseoption div .dc31.active,
+.all .courseoption div .dc41.active,
+.all .courseoption div .dc51.active,
+.all .courseoption div .dc61.active{
+    display: none;
+}
+
+.all .courseoption div .cd12.active,
+.all .courseoption div .cd22.active,
+.all .courseoption div .cd32.active,
+.all .courseoption div .cd42.active,
+.all .courseoption div .cd52.active,
+.all .courseoption div .cd62.active{
+    display: block;
+}
+
+
+.all .courseoption div p{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+
+
+
+.loader{
+    position: fixed;
+    background-color: #0000006b;
+    width: 100%;
+    margin-top: -100px;
+    align-items: center;
+    justify-items: center;
+    height: 100vh;
+    padding: 150px 550px;
+    display: none;
+}
+.loader.active{
+    display: block;
+}
+.loader .goo{
+    width: 200px;
+    align-items: center;
+    justify-items: center;
+    animation: turn 0.9s infinite;
+}
+
+@keyframes turn{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    /* 50%{
+        transform: rotateZ(180deg);
+    } */
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+
+
+.all .next{
+    width: 100%;
+    justify-items: center;
+    margin-top: 50px;
+    align-items: center;
+}
+.all .next img{
+    width: 30px;
+}
+.all .next button{
+    cursor: pointer;
+    border-radius: 50px;
+    display: flex;
+    width: 150px;
+    background-color: #F6F1EB;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 5px 30px;
+    padding-top: 10px;
+    transition: all 0.5s ease-in-out;
+}
+.all .next .nextp:hover{
+    background-color: #ff9000;
+}
+
+
+.all .next .nextp1{
+    background-color: #ff9000;
+}
+.all .next .nextp2{
+    background-color: #ff9000;
+}
+.all .next .nextp3{
+    background-color: #ff9000;
+}
+.all .next .nextp4{
+    background-color: #ff9000;
+}
+.all .next .nextp5{
+    background-color: #ff9000;
+}
+.all .next .nextp6{
+    background-color: #ff9000;
+}
+
+
+.all .next button .img{
+    margin-top: -5px;
+    margin-left: 30px;
+    background-color: #ffffff42;
+    padding: 5px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 799px){
+  
+    .ham{
+        display: block;
+    }
+
+
+    .loader{
+        width: 100%;
+    }
+}
+
+@media (min-width: 200px){
+
+    header{
+        padding: 0px;
+    }
+
+    .loader{
+        width: 100%;
+        padding: 250px  30%;
+    }
+    .loader .goo{
+        width: 70%;
+        max-width: 200px;
+        align-items: center;
+        justify-items: center;
+        animation: turn 0.9s infinite;
+    }
+
+   
+    .all{
+        padding: 0px;
+        /* width: 100%; */
+        height: auto;
+        border-radius: 10px;
+        padding: 30px 10px;
+
+    }
+    .all .courseoption{
+        display: block;
+    }
+    
+    .all .courseoption div{
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .all .courseoption div img{
+        width: 50%;
+        max-width: 100px;
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+
+
+@media (min-width: 400px){
+
+
+
+
+
+    .all{
+        padding: 30px 50px;
+    }
+}
+
+
+
+@media (min-width: 600px){
+
+
+
+
+
+    .all{
+        padding: 30px 20px;
+    }
+
+    .all .courseoption{
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        width: 100%;
+    }
+    
+    .all .courseoption div{
+        width: 200px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+    }
+
+    
+}
+
+
+
+

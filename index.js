@@ -12,9 +12,17 @@ import  WebSockets from  "./utils/websockets.js";
 import http from  "http";
 import socketio from "socket.io";
 import logger from "morgan";
+import { v4 as uuidv4 } from 'uuid';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { fileURLToPath } from 'url';
+import courseData from "./coursedata.js";
+// Define __dirname equivalent in ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
-
+dotenv.config();
 /** Create HTTP server. */
 const server = http.createServer(app);
 /** Create socket connection */
@@ -41,6 +49,7 @@ const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger
 
 const swaggerSpec = swaggerjsdocs(options);
 
+mongoose.connect(process.env.MONGODB_CONNECTION).then(console.log("database connected")).catch(error => console.log(error))
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
@@ -61,10 +70,11 @@ import {ExpressPeerServer} from "peer";
 const peerServer = ExpressPeerServer(server,{
     debug: true
 });
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger("dev"));
 app.use("/peerjs",peerServer);
 app.set('view engine','ejs')
-// app.set('views', path.join(__dirname, 'views')); 
+app.set('views', path.join(__dirname, 'views')); 
 
 /**
  * @swagger
@@ -330,17 +340,36 @@ app.set('view engine','ejs')
  */
 
 
-// app.get('/',(req,res) => {
+// app.get('/videocall',(req,res) => {
 //     // res.send("Hello World")
 //     res.redirect(`/${uuidv4()}`);
 //   })
   
 
-
+const user = null
 
 app.get('/', (req, res)=>{
     res.send('welcome to Hacked8 Api server')
 })
+
+
+app.get('/home', (req, res)=>{
+    res.render('index', {user, courseData})
+})
+
+
+app.get('/login', (req, res)=>{
+    res.render('login2')
+})
+
+app.get('/register', (req, res)=>{
+    res.render('register')
+})
+
+
+
+app.get('/buy', (req, res)=>{})
+
 
 // app.get('/:room',(req,res) => {
 //     res.render("index",{roomId: req.params.room})

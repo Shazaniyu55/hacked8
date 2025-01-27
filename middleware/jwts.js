@@ -20,7 +20,7 @@ export const encode = async (req, res, next) => {
   }
 }
 
-export const decode = (req, res, next) => {
+export  const decode = (req, res, next) => {
   if (!req.headers['authorization']) {
     return res.status(400).json({ success: false, message: 'No access token provided' });
   }

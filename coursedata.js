@@ -42,7 +42,8 @@ const courseData = [
         ],
         img: "https://res.cloudinary.com/damufjozr/image/upload/v1722939840/cqsxicyfdormiorn8ms1.png",
         price: "5000"
-    }
+    },
+    
 ];
 
 export default courseData;

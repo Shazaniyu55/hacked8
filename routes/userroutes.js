@@ -1,7 +1,7 @@
 import express  from 'express';
 import hacked from '../controller/usercontroller.js';
 import requestIp from "request-ip";
-
+// import { encode } from '../middleware/jwts.js';
 const router = express.Router();
 
 import  user from '../controller/usercontroller.js';
@@ -38,10 +38,22 @@ router.post('/exam-start', hacked.examStart);
 
 
 router
-  .get('/', user.onGetAllUsers)
-  .post('/', user.onCreateUser)
+  .get('/alluser', user.onGetAllUsers)
+  .post('/register', user.onCreateUser)
   .get('/:id', user.onGetUserById)
   .delete('/:id', user.onDeleteUserById)
 
+
+
+
+// router
+//   .post('/login/:userId', encode, (req, res, next) => {
+//     return res
+//       .status(200)
+//       .json({
+//         success: true,
+//         authorization: req.authToken,
+//       });
+//   });
 
 export default router;

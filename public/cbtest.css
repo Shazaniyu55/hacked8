@@ -1,0 +1,780 @@
+*{
+    font-family: 'poppins', sans-serif;
+}
+
+
+
+
+.cbt{
+    margin-top: 120px;
+    width: 100%;
+    color: black;
+}
+.cbt .cstop{
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+.cbt .cstop div{
+    margin-right: 200px;
+    width: 300px;
+    display: flex;
+}
+.cbt .cstop .ct1{
+    margin-left: 30px;
+    width: auto;
+    margin-right: 40px;
+}
+.cbt .cstop .ct1 a{
+    font-size: 20px;
+    background: #00000046;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 50px;
+    margin-right: 50px;
+}
+.cbt .cstop .ct1 .subject{
+    font-size: 30px;
+    font-weight: 500;
+}
+
+
+.cbt .cstop .countdown p{
+    font-size: 20px;
+    width: 200px;
+    text-align: left;
+    display: inline-flex;
+}
+.cbt .cstop .countdown p  span{
+    font-size: 20px;
+}
+
+.cbt .cstop button{
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #ff9000;
+}
+
+
+.cbt .dtest{
+    margin-top: 50px;
+    width: 80%;
+    align-self: center;
+    justify-self: center;
+}
+.cbt .dtest .quest{
+    display: flex;
+    flex: wrap;
+}
+.cbt .dtest .quest .number{
+    background-color: #ff9000;
+    margin-right: 50px;
+    height: 50px;
+    width: 50px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 50px;
+}
+.cbt .dtest .quest .dquest{
+    margin-left: 30px;
+    width: 60%;
+}
+
+.cbt .dtest .answer{
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    margin-left: 130px;
+    flex-wrap: wrap;
+    width: 60%;
+}
+.cbt .dtest .answer .danswer{
+    display: flex;
+    width: 49%;
+    /* height: 50px; */
+    padding: 10px 10px;
+    background-color: #6d6a6a8c;
+    cursor: pointer;
+}
+.cbt .dtest .answer .danswer:hover {
+    background-color: #d6811167;
+}
+  
+.cbt .dtest .answer .danswer.selected {
+    background-color: #ff9000; /* Light blue */
+    color: #fff; /* Dark blue */
+    border-color: #d68111; /* Dark blue */
+}
+
+.cbt .dtest .answer .danswer .num{
+    margin-right: 30px;
+}
+
+
+
+
+
+
+.cbt .dtest .pick-num{
+    margin-left: 130px;
+    display: flex;
+    margin-top: 50px;
+}
+.cbt .dtest .pick-num div{
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+.cbt .dtest .pick-num .chnum{
+    margin-right: 50px;
+    max-width: 650px;
+}
+.cbt .dtest .pick-num .chnum p{
+    margin-right: 10px;
+    background-color: #ff9000;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+.cbt .dtest .pick-num .fob{
+
+}
+.cbt .dtest .pick-num .fob button{
+    width: 100px;
+    height: 50px;
+    background-color: #ff9000;
+    margin-right: 10px;
+}
+
+.result-container{
+    width: 50%;
+    max-width: 400px;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+}
+.result-container h1{
+    font-size: 40px;
+    text-align: center;
+
+}
+.result-container p{
+    font-size: 20px;
+    text-align: center;
+}
+.result-container #restartBtn{
+    width: 100px;
+    height: 50px;
+    background-color: #ff9000;
+    align-self: center;
+    justify-self: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 200px){
+
+    
+    .cbt .cstop div{
+        margin-right: 0px;
+        width: 10%;
+        display: flex;
+    }
+
+    .cbt .cstop .ct1{
+        margin-left: 10px;
+    }
+    .cbt .cstop .ct1 a{
+        font-size: 15px;
+        padding: 0px 10px;
+        height: 27px;
+        margin-left: 0px;
+        margin-right: 20px;
+    }
+    .cbt .cstop .ct1 .subject{
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .cbt .cstop .countdown{
+        margin-left: 30px;
+    }
+    .cbt .cstop .countdown p{
+        font-size: 14px;
+        width: 200px;
+        text-align: left;
+        display: inline-flex;
+        margin-top: 40px;
+    }
+    .cbt .cstop .countdown p  span{
+        font-size: 14px;
+    }
+
+    .cbt .cstop button{
+        width: 90px;
+        height: 40px;
+        font-size: 13px;
+        border-radius: 10px;
+        background-color: #ff9000;
+        margin-top: 80px;
+        margin-left: -10px;
+        margin-bottom: 20px;
+    }
+
+
+
+    .cbt .dtest{
+        margin-top: 50px;
+        width: 97%;
+        align-self: center;
+        justify-self: center;
+
+    }
+    .cbt .dtest .quest .number{
+        background-color: #ff9000;
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+        padding-top: 5px;
+        text-align: center;
+        border-radius: 50px;
+    }
+    .cbt .dtest .quest .dquest{
+        margin-left: 0px;
+        width: 80%;
+    }
+
+    .cbt .dtest .answer{
+        display: flex;
+        gap: 5px;
+        margin-top: 30px;
+        margin-left: 5%;
+        flex-wrap: wrap;
+        width: 90%;
+    }
+    .cbt .dtest .answer .danswer{
+        display: flex;
+        width: 100%;
+        /* height: 50px; */
+        padding-left: 10px;
+        padding-top: 10px;
+        background-color: #6d6a6a8c;
+    }
+    .cbt .dtest .answer .danswer .num{
+        margin-right: 10px;
+    }
+
+    .cbt .dtest .pick-num{
+        margin-left: 5%;
+        display: block;
+        flex: 5 2 calc(100% - 50px);
+        width: 90%;
+        margin-top: 50px;
+    }
+    .cbt .dtest .pick-num div{
+        display: flex;
+        flex-wrap: wrap;
+        cursor: pointer;
+        width: 100%;
+    }
+    .cbt .dtest .pick-num .chnum{
+        margin-right: 50px;
+        display: flex;
+        width: 100%;
+        max-width: 650px;
+    }
+
+    .cbt .dtest .pick-num .fob{
+        justify-items: center;
+        align-items: center;
+    }
+    .cbt .dtest .pick-num .fob button{
+        width: 100px;
+        height: 50px;
+        background-color: #ff9000;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        justify-self: center;
+        align-self: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 300px){
+    
+    .cbt .cstop .ct1 .subject{
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .cbt .cstop .countdown{
+        margin-left: 0px;
+    }
+    .cbt .cstop button{
+        width: 90px;
+        height: 40px;
+        font-size: 13px;
+        border-radius: 10px;
+        background-color: #ff9000;
+        margin-top: 35px;
+        margin-left: 40%;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 500px){
+
+    .cbt .dtest{
+        margin-top: 50px;
+        width: 80%;
+        align-self: center;
+        justify-self: center;
+
+    }
+}
+
+
+
+
+
+
+
+
+@media (min-width: 700px){
+
+    .cbt .cstop div{
+        margin-right: 200px;
+        width: 100px;
+        display: flex;
+    }
+
+    .cbt .cstop .ct1{
+        margin-left: 30px;
+    }
+
+    .cbt .cstop .ct1 .subject{
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    .cbt .cstop .countdown p{
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+
+    .cbt .cstop button{
+        width: 90px;
+        height: 40px;
+        font-size: 13px;
+        border-radius: 10px;
+        background-color: #ff9000;
+        margin-top: 0px;
+        margin-left: -10%;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 1000px){
+
+    .cbt .cstop{
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+    }
+    .cbt .cstop div{
+        margin-right: 200px;
+        width: 250px;
+        display: flex;
+    }
+    .cbt .cstop .ct1{
+        margin-left: 30px;
+    }
+    .cbt .cstop .ct1 a{
+        font-size: 20px;
+        background: #00000046;
+        height: 30px;
+        width: 30px;
+        text-align: center;
+        border-radius: 50px;
+        margin-right: 50px;
+    }
+    .cbt .cstop .ct1 .subject{
+        font-size: 30px;
+        font-weight: 500;
+    }
+    
+    
+    .cbt .cstop .countdown p{
+        font-size: 20px;
+        width: 200px;
+        text-align: left;
+        display: inline-flex;
+    }
+    .cbt .cstop .countdown p  span{
+        font-size: 20px;
+    }
+    
+    .cbt .cstop button{
+        width: 120px;
+        height: 50px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #ff9000;
+    }
+    
+    
+    .cbt .dtest{
+        margin-top: 50px;
+        width: 80%;
+        align-self: center;
+        justify-self: center;
+    }
+    .cbt .dtest .quest{
+        display: flex;
+        flex: wrap;
+    }
+    .cbt .dtest .quest .number{
+        background-color: #ff9000;
+        margin-right: 50px;
+        height: 50px;
+        width: 50px;
+        padding-top: 10px;
+        text-align: center;
+        border-radius: 50px;
+    }
+    .cbt .dtest .quest .dquest{
+        margin-left: 30px;
+        width: 60%;
+    }
+    
+    .cbt .dtest .answer{
+        display: flex;
+        gap: 10px;
+        margin-top: 30px;
+        margin-left: 130px;
+        flex-wrap: wrap;
+        width: 60%;
+    }
+    .cbt .dtest .answer .danswer{
+        display: flex;
+        width: 48.5%;
+        /* height: 50px; */
+        padding-left: 10px;
+        padding-top: 10px;
+        background-color: #6d6a6a8c;
+    }
+    .cbt .dtest .answer .danswer .num{
+        margin-right: 30px;
+    }
+    
+    
+    
+    
+    
+    
+    .cbt .dtest .pick-num{
+        margin-left: 130px;
+        display: flex;
+        margin-top: 50px;
+    }
+    .cbt .dtest .pick-num div{
+        display: flex;
+        flex-wrap: wrap;
+        cursor: pointer;
+    }
+    .cbt .dtest .pick-num .chnum{
+        margin-right: 50px;
+        max-width: 650px;
+    }
+    .cbt .dtest .pick-num .chnum p{
+        margin-right: 10px;
+        background-color: #ff9000;
+        height: 30px;
+        width: 30px;
+        text-align: center;
+        border-radius: 50px;
+    }
+    .cbt .dtest .pick-num .fob{
+    
+    }
+    .cbt .dtest .pick-num .fob button{
+        width: 100px;
+        height: 50px;
+        background-color: #ff9000;
+        margin-right: 10px;
+    }
+    
+    
+    
+    
+    
+    
+    
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 1200px){
+
+    .cbt .cstop{
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+    }
+    .cbt .cstop div{
+        margin-right: 200px;
+        width: 300px;
+        display: flex;
+    }
+    .cbt .cstop .ct1{
+        margin-left: 30px;
+    }
+    .cbt .cstop .ct1 a{
+        font-size: 20px;
+        background: #00000046;
+        height: 30px;
+        width: 30px;
+        text-align: center;
+        border-radius: 50px;
+        margin-right: 50px;
+    }
+    .cbt .cstop .ct1 .subject{
+        font-size: 30px;
+        font-weight: 500;
+    }
+    
+    
+    .cbt .cstop .countdown p{
+        font-size: 20px;
+        width: 200px;
+        text-align: left;
+        display: inline-flex;
+    }
+    .cbt .cstop .countdown p  span{
+        font-size: 20px;
+    }
+    
+    .cbt .cstop button{
+        width: 120px;
+        height: 50px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #ff9000;
+    }
+    
+    
+    .cbt .dtest{
+        margin-top: 50px;
+        width: 80%;
+        align-self: center;
+        justify-self: center;
+    }
+    .cbt .dtest .quest{
+        display: flex;
+        flex: wrap;
+    }
+    .cbt .dtest .quest .number{
+        background-color: #ff9000;
+        margin-right: 50px;
+        height: 50px;
+        width: 50px;
+        padding-top: 10px;
+        text-align: center;
+        border-radius: 50px;
+    }
+    .cbt .dtest .quest .dquest{
+        margin-left: 30px;
+        width: 60%;
+    }
+    
+    .cbt .dtest .answer{
+        display: flex;
+        gap: 10px;
+        margin-top: 30px;
+        margin-left: 130px;
+        flex-wrap: wrap;
+        width: 60%;
+    }
+    .cbt .dtest .answer .danswer{
+        display: flex;
+        width: 49%;
+        /* height: 50px; */
+        padding-left: 10px;
+        padding-top: 10px;
+        background-color: #6d6a6a8c;
+    }
+    .cbt .dtest .answer .danswer .num{
+        margin-right: 30px;
+    }
+    
+    
+    
+    
+    
+    
+    .cbt .dtest .pick-num{
+        margin-left: 130px;
+        display: flex;
+        margin-top: 50px;
+    }
+    .cbt .dtest .pick-num div{
+        display: flex;
+        flex-wrap: wrap;
+        cursor: pointer;
+    }
+    .cbt .dtest .pick-num .chnum{
+        margin-right: 50px;
+        max-width: 650px;
+    }
+    .cbt .dtest .pick-num .chnum p{
+        margin-right: 10px;
+        background-color: #ff9000;
+        height: 30px;
+        width: 30px;
+        text-align: center;
+        border-radius: 50px;
+    }
+    .cbt .dtest .pick-num .fob{
+    
+    }
+    .cbt .dtest .pick-num .fob button{
+        width: 100px;
+        height: 50px;
+        background-color: #ff9000;
+        margin-right: 10px;
+    }
+    
+    
+    
+    
+    
+    
+    
+
+    
+}
