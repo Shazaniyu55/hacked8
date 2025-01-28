@@ -63,7 +63,7 @@
         <% if (typeof error !== 'undefined') { %>
             <p class="error"><%= error %></p>
         <% } %>
-        <form action="/users/login" method="POST">
+        <form action="/api/auth/login" method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 

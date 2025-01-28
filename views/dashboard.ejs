@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CodeMirror CSS and JS CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/dashboard.css">
+
+	<title>AdminHub</title>
+
+	<style>
+		 #code-editor {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+		/* Table Styles */
+#courses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#courses-table th,
+#courses-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#courses-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#courses-table td {
+    background-color: #f9f9f9;
+}
+
+#courses-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#courses-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Progress Bar Styles */
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 10px;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Style for progress value in the table */
+td .progress-container {
+    margin-top: 5px;
+}
+
+/* Topic Checkbox Styles */
+#courses-table td ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#courses-table td ul li {
+    margin: 5px 0;
+}
+
+#courses-table td ul li input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#courses-table td ul li input[type="checkbox"]:checked {
+    background-color: #4caf50;
+}
+
+
+
+
+	</style>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">My Courses</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#">
+					<i class='bx bxs-book' ></i>
+					<span class="text">Take Quiz</span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="/dashboard/message">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Message</span>
+				</a>
+			</li>
+<!-- 
+			<li>
+				<a href="/dashboard/profile/<%= user.user_id %>">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Profile</span>
+				</a>
+			</li> -->
+			
+		</ul>
+		<ul class="side-menu">
+			
+			<li>
+				<a href="/logout" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="/home" class="nav-link">Hacked8</a>
+			
+		
+			
+			
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="">Home</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			<div class="courses-section">
+                <h2>Write Your Code</h2>
+                <textarea id="code-editor"></textarea> <!-- Textarea for the code editor -->
+            </div>
+
+			<!-- -->
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>4</h3>
+						<p>Courses</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3 id="total-progress">0%</h3> <!-- Progress will update here -->
+						<p>Lectures Progress</p>
+					</span>
+					<div class="progress-container">
+						<div id="progress-bar" class="progress-bar"></div>
+					</div>
+				</li>
+				
+			
+			</ul>
+
+
+			<div class="courses-section">
+				<table id="courses-table">
+					<thead>
+						<tr>
+							<th>Course Title</th>
+							<th>Progress</th>
+						</tr>
+					</thead>
+					<tbody id="course-list">
+						<!-- Course data will be inserted here dynamically -->
+					</tbody>
+				</table>
+			</div>
+			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<!-- Textarea for CodeMirror -->
+
+	<script>
+		 // Initialize CodeMirror
+		 const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+    lineNumbers: true, // Show line numbers
+    mode: "htmlmixed",  // Set the mode to HTML/JS/CSS
+    theme: "dracula",   // Set the theme (you can use other themes too)
+    htmlMode: true,     // Allow HTML-specific syntax highlighting
+    tabSize: 2,         // Set the tab size
+    indentUnit: 2,      // Set the indentation size
+    lineWrapping: true, // Allow line wrapping
+  });
+
+		const API_URL = "http://localhost:3100";
+
+// Fetch courses and update UI
+async function fetchCourses() {
+    const response = await fetch(`${API_URL}/courses`);
+    const courses = await response.json();
+    
+    let totalProgress = 0;
+    let totalCourses = courses.length;
+	console.log(totalCourses)
+
+    const courseList = document.getElementById("course-list");
+    courseList.innerHTML = "";
+
+    courses.forEach(course => {
+        const progress = calculateProgress(course);
+        totalProgress += parseFloat(progress);
+
+        const courseItem = document.createElement("tr");
+        courseItem.innerHTML = `
+            <h3>${course.title} - <span id="progress-${course.id}"></span></h3>
+			<td>
+				 ${progress}% 
+            <div class="progress-container">
+                <div id="progress-bar-${course.id}" class="progress-bar" style="width: ${progress}%;"></div>
+            </div>
+           
+
+			</td>
+        `;
+
+        courseList.appendChild(courseItem);
+    });
+
+    // Update total progress
+    let averageProgress = (totalCourses > 0) ? (totalProgress / totalCourses).toFixed(2) : 0;
+    document.getElementById("total-progress").innerText = `${averageProgress}%`;
+    document.getElementById("progress-bar").style.width = `${averageProgress}%`;
+}
+
+// Calculate progress for a single course
+function calculateProgress(course) {
+    const totalTopics = course.topics.length;
+    const completedTopics = course.topics.filter(topic => topic.completed).length;
+    return ((completedTopics / totalTopics) * 100).toFixed(2);
+}
+
+// Mark a topic as complete and update UI instantly
+async function markTopicComplete(courseId, topicId) {
+    const response = await fetch(`${API_URL}/mark-complete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId, topicId })
+    });
+
+    if (response.ok) {
+        // Update UI instantly
+        const courseElement = document.querySelector(`#progress-${courseId}`);
+        const progressBar = document.querySelector(`#progress-bar-${courseId}`);
+
+        // Get the latest progress for the course
+        const updatedResponse = await fetch(`${API_URL}/courses`);
+        const updatedCourses = await updatedResponse.json();
+        const updatedCourse = updatedCourses.find(c => c.id === courseId);
+        const newProgress = calculateProgress(updatedCourse);
+
+        if (courseElement && progressBar) {
+            courseElement.innerText = `${newProgress}%`;
+            progressBar.style.width = `${newProgress}%`;
+        }
+
+        fetchCourses(); // Refresh all courses
+    } else {
+        console.error("Failed to mark topic as complete");
+    }
+}
+
+// Load courses on page load
+fetchCourses();
+
+
+
+	</script>
+
+	<script src="/dash.js"></script>
+</body>
+</html>

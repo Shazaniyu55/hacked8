@@ -12,11 +12,13 @@ import  WebSockets from  "./utils/websockets.js";
 import http from  "http";
 import socketio from "socket.io";
 import logger from "morgan";
+import session  from "express-session";
 import { v4 as uuidv4 } from 'uuid';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
 import courseData from "./coursedata.js";
+import nodemailer from 'nodemailer';
 // Define __dirname equivalent in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,6 +56,13 @@ mongoose.connect(process.env.MONGODB_CONNECTION).then(console.log("database conn
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use(session({
+    secret: 'hacked8_password', // Replace with your own secret
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+  }));
+  
 app.use(cors({
     origin: "https://test-theta-sage.vercel.app",          // Removed the trailing slash
     methods: 'GET, POST, PUT, DELETE',       // Methods allowed
@@ -70,11 +79,15 @@ import {ExpressPeerServer} from "peer";
 const peerServer = ExpressPeerServer(server,{
     debug: true
 });
+
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger("dev"));
 app.use("/peerjs",peerServer);
 app.set('view engine','ejs')
 app.set('views', path.join(__dirname, 'views')); 
+
+// Configure session management
 
 /**
  * @swagger
@@ -346,7 +359,15 @@ app.set('views', path.join(__dirname, 'views'));
 //   })
   
 
-const user = null
+//const user = null
+
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.user) {
+      return next();
+    } else {
+      res.redirect('/login');
+    }
+  }
 
 app.get('/', (req, res)=>{
     res.send('welcome to Hacked8 Api server')
@@ -354,9 +375,13 @@ app.get('/', (req, res)=>{
 
 
 app.get('/home', (req, res)=>{
-    res.render('index', {user, courseData})
+    res.render('index', { user: req.session.user, courseData})
 })
 
+// Get all courses
+app.get('/courses', (req, res) => {
+  res.json(courseData);
+});
 
 app.get('/login', (req, res)=>{
     res.render('login2')
@@ -366,10 +391,76 @@ app.get('/register', (req, res)=>{
     res.render('register')
 })
 
+// Mark a topic as complete
+app.post('/mark-complete', (req, res) => {
+  const { courseId, topicId } = req.body;
+  const course = courseData.find(c => c.id === courseId);
+  if (!course) return res.status(404).json({ error: "Course not found" });
 
+  const topic = course.topics.find(t => t.id === topicId);
+  if (!topic) return res.status(404).json({ error: "Topic not found" });
 
-app.get('/buy', (req, res)=>{})
+  topic.completed = true;
+  res.json({ message: `Marked "${topic.title}" as complete`, course });
+});
 
+app.get('/course/:id',isAuthenticated, (req, res)=>{
+    const courseId = req.params.id;
+    const course = courseData.find(c => c.id === courseId);
+
+    if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.render('purchase', {course, user: req.session.user});
+
+})
+
+//send email using the nodemailer functionality/
+app.post('/sendmail', (req, res)=>{
+    const { firstname, lastname,  email, message } = req.body;
+    
+    console.log(firstname, lastname, email, message)
+    let transporter = nodemailer.createTransport({
+              // Specify your email service provider
+              service: 'Gmail', // e.g., 'gmail', 'hotmail', etc.
+              auth: {
+                  user: 'shazaniyu@gmail.com', // Your email address
+                  pass: process.env.EMAIL_PASSWORD // Your email password
+              },
+              tls:{
+                  rejectUnauthorized:false
+              }
+    })
+  
+    // Setup email data
+            let mailOptions = {
+              from: 'shaazaniyu@gmail.com', // Sender address
+              to: 'zoeadoree33@gmail.com, shazaniyu@gmail.com', // List of recipients
+              subject: 'HACKED8', // Subject line
+              text: `FirstName: ${firstname}\n LastName: ${lastname} \nEmail: ${email}\nMessage: ${message}`, // Plain text body
+              // You can add HTML to the email if needed
+              // html: '<p>Name: ' + name + '</p><p>Email: ' + email + '</p><p>Message: ' + message + '</p>'
+            };
+  
+            // Send email
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                  return console.log(error);
+              }
+              console.log('Message sent: %s', info.messageId);
+              res.render('email');
+            });
+  
+  });
+  app.get('/dashboard', (req, res) => {
+
+    if (req.session.user) {
+      res.render('dashboard', { user: req.session.user });
+    } else {
+      res.redirect('/login');
+    }
+  });
 
 // app.get('/:room',(req,res) => {
 //     res.render("index",{roomId: req.params.room})

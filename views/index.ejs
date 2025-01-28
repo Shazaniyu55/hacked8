@@ -69,7 +69,7 @@
 
 .product-image {
   width: 100%;
-  height: 150px;
+  height: 270px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -354,9 +354,9 @@
     <img src="<%= product.img %>" alt="Product 1" class="product-image">
     <div class="product-details">
       <h3 class="product-title"><%= product.title %></h3>
-      <p class="product-description">This is a short description of product 1.</p>
-      <span class="product-price">$99.99</span>
-      <button class="buy-button">Buy Now</button>
+      <p class="product-description"><%= product.description %></p>
+      <span class="product-price">$<%= product.price %></span>
+      <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
     </div>
   </div>
 

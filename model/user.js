@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from 'bcryptjs';
 
 export const USER_TYPES = {
   CONSUMER: "consumer",
@@ -14,6 +15,8 @@ const userSchema = new mongoose.Schema(
     },
     firstName: String,
     lastName: String,
+    email: String,
+    password: String,
     type: String,
   },
   {
@@ -27,14 +30,15 @@ const userSchema = new mongoose.Schema(
  * @param {String} lastName
  * @returns {Object} new user object created
  */
-userSchema.statics.createUser = async function (firstName, lastName, type) {
+userSchema.statics.createUser = async function (firstName, lastName, email, password, type) {
   try {
-    const user = await this.create({ firstName, lastName, type });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await this.create({ firstName, lastName, email, password: hashedPassword, type });
     return user;
   } catch (error) {
     throw error;
   }
-}
+};
 
 /**
  * @param {String} id, user id
@@ -87,5 +91,12 @@ userSchema.statics.deleteByUserById = async function (id) {
     throw error;
   }
 }
+
+
+
+userSchema.methods.comparePassword = function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
 
 export default mongoose.model("User", userSchema);

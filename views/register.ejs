@@ -38,6 +38,13 @@
             border: 1px solid #ddd;
             border-radius: 3px;
         }
+
+        .login-container select {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
         .login-container button {
             padding: 10px;
             border: none;
@@ -63,12 +70,23 @@
         <% if (typeof error !== 'undefined') { %>
             <p class="error"><%= error %></p>
         <% } %>
-        <form action="/users/login" method="POST">
-            <label for="email">Email:</label>
+        <form action="/api/auth/register" method="POST">
+            <label for="lastName">FirstName:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="password">LastName:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="password">Email:</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="password">password:</label>
+            <input type="text" id="password" name="password" required>
+
+            <select name="type" id="type">
+                <option value="consumer">consumer</option>
+                <option value="support">support</option>
+            </select>
 
             <button type="submit">Register</button>
             <p>Already Have an Account<a href="/login" style="color: #2c7ac4;">SignIn Here<i class=""></i></a></p>

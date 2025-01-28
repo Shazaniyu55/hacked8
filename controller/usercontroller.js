@@ -406,42 +406,35 @@ const buyCourse = (req, res)=>{
 }
 
 
-const logIn = async(req, res)=> 
-    {
-    
+const logIn = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
+
         if (!user) {
-            return res.status(401).json({ status: "Failed", message: "invalid email or password" });
+            return res.status(401).json({ status: "Failed", message: "Invalid email or password" });
         }
 
-        // Generate a JWT token
-        const token = jwt.sign({ id: user._id }, 'Adain', { expiresIn: '1h' }); // 1 hour expiration
-        
-    
-             
+        if (!req.session) {
+            return res.status(500).json({ status: "Failed", message: "Session is not initialized" });
+        }
 
-                // Send success response
-                res.status(200).json({
-                    status: "Success",
-                    message: "Login successful",
-                    token,
-                    user
-                });
-        
-                // Redirect to the dashboard
-                // res.redirect('/dashboard');
+        req.session.user = {
+            user_id: user.user_id,
+            firstname: user.firstName,
+            lastname: user.lastName,
+            email: user.email,
+        };
+
+        res.redirect('/dashboard');
+
     } catch (error) {
         console.error("Error during login:", error);
 
-        // Handle errors and ensure only one response
         if (!res.headersSent) {
             res.status(500).json({ status: "Failed", message: error.message });
-        }   
+        }
     }
-    
-    
 };
 
 
@@ -535,13 +528,15 @@ const generateExamId = (userId) => {
           checks: {
             firstName: { type: types.string },
             lastName: { type: types.string },
+            email: {type: types.string},
+            password:{type: types.string},
             type: { type: types.enum, options: { enum: USER_TYPES } },
           }
         }));
         if (!validation.success) return res.status(400).json({ ...validation });
   
-        const { firstName, lastName, type } = req.body;
-        const user = await UserModel.createUser(firstName, lastName, type);
+        const { firstName, lastName, email, password, type } = req.body;
+        const user = await UserModel.createUser(firstName, lastName, email, password, type);
         return res.status(200).json({ success: true, user });
       } catch (error) {
         return res.status(500).json({ success: false, error: error })

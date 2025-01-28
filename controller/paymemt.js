@@ -1,29 +1,28 @@
-const Payment = require('../model/payment');
-const User = require("../model/user");
-const Subscribe = require('../model/subscribe');
-const axios = require("axios");
+import Payment from '../model/payment';
+import User from "../model/user";
+import Subscribe from'../model/subscribe';
+import  axios from  "axios";
 require("dotenv").config();
 
 
 
-const subscriptionFee = async (req, res) => {
-  const { email, name, package, userId } = req.body;
+export const subscriptionFee = async (req, res) => {
+  const { email, name, price, userId } = req.body;
 
   const paymentData = {
     public_key: process.env.PUBLIC_KEY,
     email: email,
     name: name,
-    subscription: package,
     currency: 'NGN',
     source: 'docs-html-test',
     user: userId,
-    amount: package 
+    amount: price 
   };
 
   try {
     // Make the API request to Paystack
     const response = await axios.post('https://api.paystack.co/transaction/initialize', {
-      amount: package * 100,
+      amount: price * 100,
       currency: 'NGN',
       callback_url: `http://localhost:3100/api/payment/verify-payment?userId=${userId}`,
       email: email,
@@ -57,7 +56,7 @@ const subscriptionFee = async (req, res) => {
 };
 
 
-const verifyPayment = async (req, res) => {
+export const verifyPayment = async (req, res) => {
   const { reference, userId, plan} = req.query;
 
   if (!reference || !userId) {
@@ -108,10 +107,4 @@ const verifyPayment = async (req, res) => {
 
 
 
-module.exports = 
-{
 
-  subscriptionFee, 
-  verifyPayment,
- 
-}

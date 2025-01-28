@@ -12,6 +12,7 @@ let userIpList = [];
 router.get('/course', hacked.getAllCourse);
 router.get('/course/:id', hacked.buyCourse);
 router.get('/FE-Exam', hacked.getExamFrontend);
+router.post('/login', hacked.logIn);
 
 //exams login logic based on IP difference..
 router.get('/exam-login', (req, res)=>{
