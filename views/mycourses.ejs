@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CodeMirror CSS and JS CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/dashboard.css">
+
+	<title>AdminHub</title>
+
+    <style>
+        .content{
+            display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to the bottom */
+   
+        }
+        .courses-section {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .course-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .course-card:last-child {
+            border-bottom: none;
+        }
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .progress-container {
+            width: 100px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #28a745;
+            width: 0%;
+        }
+        .view-btn {
+            background: #007bff;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .view-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		
+		<ul class="side-menu top">
+			<li >
+				<a href="/dashboard">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">My Courses</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/cbt">
+					<i class='bx bxs-book' ></i>
+					<span class="text">Take Quiz</span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Message</span>
+				</a>
+			</li>
+
+			
+<!-- 
+			<li>
+				<a href="/dashboard/profile/<%= user.user_id %>">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Profile</span>
+				</a>
+			</li> -->
+			
+		</ul>
+		<ul class="side-menu">
+			
+			<li>
+				<a href="/remove" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="/home" class="nav-link">Hacked8</a>
+			
+		
+			
+            <a href="/videocall"><i class='bx bx-video' style="cursor: pointer;"></i></a>
+			<a href="/chat"><i class='bx bx-chat' style="cursor: pointer;"></i></a>
+
+			
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>MyCourses</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Courses</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="/home">Home</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+
+			<!-- -->
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>4</h3>
+						<p>Courses</p>
+					</span>
+				</li>
+				
+
+
+
+
+               
+				
+			
+			</ul>
+
+            
+
+
+            <section class="content">
+                <main>
+                    <div class="head-title">
+                        <h1>My Courses</h1>
+                    </div>
+        
+                    <div class="courses-section">
+                        <div id="course-list">
+                            <!-- Course items will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </main>
+            </section>
+			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<!-- Textarea for CodeMirror -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const courses = [
+                { title: "Introduction to HTML", progress: 80, pdf: "/resources/html_course.pdf" },
+                { title: "CSS Basics", progress: 60, pdf: "/resources/css_course.pdf" },
+                { title: "JavaScript Fundamentals", progress: 40, pdf: "/resources/js_course.pdf" },
+                { title: "React for Beginners", progress: 20, pdf: "/resources/react_course.pdf" }
+            ];
+
+            const courseList = document.getElementById("course-list");
+            
+            courses.forEach(course => {
+                const courseItem = document.createElement("div");
+                courseItem.classList.add("course-card");
+                
+                courseItem.innerHTML = `
+                    <div class="course-title">${course.title}</div>
+                  
+                    <button class="view-btn" onclick="window.open('${course.pdf}', '_blank')">View PDF</button>
+                `;
+                
+                courseList.appendChild(courseItem);
+            });
+        });
+    </script>
+
+	<script src="/dash.js"></script>
+</body>
+</html>

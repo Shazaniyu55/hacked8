@@ -456,7 +456,7 @@ app.post('/sendmail', (req, res)=>{
             });
   
   });
-  app.get('/dashboard', (req, res) => {
+app.get('/dashboard', (req, res) => {
 
     if (req.session.user) {
       res.render('dashboard', { user: req.session.user });
@@ -464,6 +464,15 @@ app.post('/sendmail', (req, res)=>{
       res.redirect('/login');
     }
   });
+
+  app.get('/mycourses', (req, res) => {
+
+    if (req.session.user) {
+      res.render('mycourses', { user: req.session.user });
+    } else {
+      res.redirect('/login');
+    }
+  }); 
 
 
 //logout rout to destroy all the sessions
