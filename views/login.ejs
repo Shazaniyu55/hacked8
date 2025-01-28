@@ -10,8 +10,8 @@
 </head>
 <body>
     <header>
-        <h1 class="logo">Logo</h1>
-        <nav>
+      <img src="/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
+      <nav>
           <button class="signup-button">Sign up</button>
         </nav>
       </header>
@@ -28,7 +28,7 @@
           <h2>Login</h2>
           <p>Hey, login to continue</p>
     
-          <form>
+          <form action="/api/auth/login" method="POST">
             <!-- Email Input -->
             <div class="input-group">
               <span class="input-icon">✉️</span>
@@ -44,11 +44,11 @@
     
             <a href="#" class="forgot-password">Forgotten password?</a>
     
-            <button class="login-button">Login</button>
+            <button type="submit" class="login-button">Login</button>
           </form>
     
           <p class="register-text">
-            Don’t have an account? <a href="/users/signup" class="register-link">Register</a>
+            Don’t have an account? <a href="/register" class="register-link">Register</a>
           </p>
         </main>
       </div>
@@ -56,19 +56,7 @@
   <script src="/js/login.js"></script>
 
 
-  <script>
-       document.querySelector(".login-button").addEventListener("click", function(e){
 
-        e.preventDefault();
-
-document.querySelector(".loader").classList.add("active")
-
-setTimeout( ()=> {
-    window.location = "/users/chooseuser"
-}, 3000)
-
-})
-  </script>
   
 </body>
 </html>
