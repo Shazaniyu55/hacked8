@@ -116,12 +116,24 @@
     <% if (user) { %>
       <div class="checkout-container">
         <h2>Checkout</h2>
-        <form id="checkout-form">
+        <form  action="/api/payment/payment" method="post">
           
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required value="<%= user.email %>">
-          </div>
+         
+            <label for="email">Pay to Acquire course</label>
+            <input type="email" id="email" name="email"  value="<%= user.email %>" hidden>
+        
+
+         
+            <input type="text" id="email" name="fname"  value="<%= user.firstname %>" hidden>
+       
+
+         
+            <input type="text" id="email" name="userId"  value="<%= user.user_id %>" hidden>
+       
+
+         
+            <input type="text" id="email" name="price"  value="<%= course.price %>" hidden>
+         
         
        
           <button type="submit" class="checkout-btn">Pay $<%= course.price %></button>
@@ -142,7 +154,7 @@
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
-    fetch('/checkout', {
+    fetch('/api/payment/payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

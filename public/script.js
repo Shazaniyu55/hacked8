@@ -13,27 +13,30 @@ var peer = new Peer({
 
 let myVideoStream;
 navigator.mediaDevices
-  .getUserMedia({
-    audio: true,
-    video: true,
-  })
+  .getUserMedia({ audio: true, video: true })
   .then((stream) => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
     peer.on("call", (call) => {
-      console.log('someone call me');
-      call.answer(stream);
+      console.log('Incoming call from: ' + call.peer);
+      call.answer(stream);  // Answer the incoming call
       const video = document.createElement("video");
       call.on("stream", (userVideoStream) => {
+        console.log('Received stream from: ' + call.peer);
         addVideoStream(video, userVideoStream);
       });
     });
 
     socket.on("user-connected", (userId) => {
+      console.log("User connected with ID: " + userId);
       connectToNewUser(userId, stream);
     });
+  })
+  .catch((err) => {
+    console.error('Error getting media: ', err);
   });
+
 
 const connectToNewUser = (userId, stream) => {
   console.log('I call someone' + userId);

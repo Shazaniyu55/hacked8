@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacked8 Academy</title>
+  <link rel="stylesheet" href="/css/loginn.css">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Poppins:wght@400;500&display=swap"
+	  rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Logo</h1>
+        <nav>
+          <button class="signup-button">Sign up</button>
+        </nav>
+      </header>
+
+      
+      <div class="loader">
+        <img src="/images/loader.png" alt="" class="goo">
+      </div>
+
+    <div class="login-container">
+       
+    
+        <main class="login-card">
+          <h2>Login</h2>
+          <p>Hey, login to continue</p>
+    
+          <form>
+            <!-- Email Input -->
+            <div class="input-group">
+              <span class="input-icon">✉️</span>
+              <input type="email" name="email" placeholder="Enter your Email" required>
+            </div>
+    
+            <!-- Password Input -->
+            <div class="input-group">
+              <span class="input-icon">🔒</span>
+              <input type="password" name="password" placeholder="Enter your password" id="password" required>
+              <span class="toggle-password">🙈</span>
+            </div>
+    
+            <a href="#" class="forgot-password">Forgotten password?</a>
+    
+            <button class="login-button">Login</button>
+          </form>
+    
+          <p class="register-text">
+            Don’t have an account? <a href="/users/signup" class="register-link">Register</a>
+          </p>
+        </main>
+      </div>
+
+  <script src="/js/login.js"></script>
+
+
+  <script>
+       document.querySelector(".login-button").addEventListener("click", function(e){
+
+        e.preventDefault();
+
+document.querySelector(".loader").classList.add("active")
+
+setTimeout( ()=> {
+    window.location = "/users/chooseuser"
+}, 3000)
+
+})
+  </script>
+  
+</body>
+</html>

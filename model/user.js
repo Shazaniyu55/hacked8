@@ -18,7 +18,9 @@ const userSchema = new mongoose.Schema(
     email: String,
     password: String,
     type: String,
+    purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
   },
+  
   {
     timestamps: true,
     collection: "users",

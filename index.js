@@ -6,6 +6,7 @@ const port = 3100;
 import  bodyParser from 'body-parser';
 import cors from "cors";
 import userRoutes from  "./routes/userroutes.js";
+import paymentRoutes from  "./routes/payment.js";
 import chatRoomRouter from "./routes/chatRooms.js";
 import path  from "path";
 import  WebSockets from  "./utils/websockets.js";
@@ -64,12 +65,13 @@ app.use(session({
   }));
   
 app.use(cors({
-    origin: "https://test-theta-sage.vercel.app",          // Removed the trailing slash
+    origin: "http://localhost:3100",          // Removed the trailing slash
     methods: 'GET, POST, PUT, DELETE',       // Methods allowed
     allowedHeaders: 'Content-Type, Authorization' // Corrected 'authorization' to 'Authorization'
   }));
 app.options('*', cors())
 app.use("/api/auth", userRoutes);
+app.use("/api/payment", paymentRoutes);
 app.use("/api-docs", swaggerui.serve, swaggerui.setup(swaggerSpec, {
     customCss:
     '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
@@ -353,10 +355,10 @@ app.set('views', path.join(__dirname, 'views'));
  */
 
 
-// app.get('/videocall',(req,res) => {
-//     // res.send("Hello World")
-//     res.redirect(`/${uuidv4()}`);
-//   })
+app.get('/videocall',(req,res) => {
+    // res.send("Hello World")
+    res.redirect(`/${uuidv4()}`);
+  })
   
 
 //const user = null
@@ -384,11 +386,15 @@ app.get('/courses', (req, res) => {
 });
 
 app.get('/login', (req, res)=>{
-    res.render('login2')
+    res.render('login')
 })
 
 app.get('/register', (req, res)=>{
     res.render('register')
+})
+
+app.get('/cbt', isAuthenticated,  (req, res)=>{
+  res.render('cbtest', { user: req.session.user, courseData})
 })
 
 // Mark a topic as complete
@@ -462,9 +468,9 @@ app.post('/sendmail', (req, res)=>{
     }
   });
 
-// app.get('/:room',(req,res) => {
-//     res.render("index",{roomId: req.params.room})
-// })
+app.get('/:room',(req,res) => {
+    res.render("index1",{roomId: req.params.room})
+})
 
 // app.listen(port, ()=>{
 //     console.log(`server running at port http://localhost:${port}`)

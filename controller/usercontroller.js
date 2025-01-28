@@ -420,7 +420,7 @@ const logIn = async (req, res) => {
         }
 
         req.session.user = {
-            user_id: user.user_id,
+            user_id: user._id,
             firstname: user.firstName,
             lastname: user.lastName,
             email: user.email,

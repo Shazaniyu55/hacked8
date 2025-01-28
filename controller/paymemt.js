@@ -1,18 +1,17 @@
-import Payment from '../model/payment';
-import User from "../model/user";
-import Subscribe from'../model/subscribe';
+import User from "../model/user.js";
 import  axios from  "axios";
-require("dotenv").config();
+// import { verify } from 'jsonwebtoken';
+// require("dotenv").config();
 
 
 
-export const subscriptionFee = async (req, res) => {
-  const { email, name, price, userId } = req.body;
+ const subscriptionFee = async (req, res) => {
+  const { email, fname, price, userId } = req.body;
 
   const paymentData = {
     public_key: process.env.PUBLIC_KEY,
     email: email,
-    name: name,
+    name: fname,
     currency: 'NGN',
     source: 'docs-html-test',
     user: userId,
@@ -26,10 +25,10 @@ export const subscriptionFee = async (req, res) => {
       currency: 'NGN',
       callback_url: `http://localhost:3100/api/payment/verify-payment?userId=${userId}`,
       email: email,
-      name: name,
+      name: fname,
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_SECRETE_LIVE}`,
+        Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
         'Content-Type': 'application/json'
       }
     });
@@ -42,8 +41,8 @@ export const subscriptionFee = async (req, res) => {
       paymentData.tx_ref = tx_ref;
 
       // Save the payment data to your database
-      const payment = new Subscribe(paymentData);
-      await payment.save();
+      // const payment = new Subscribe(paymentData);
+      // await payment.save();
       
       res.redirect(paymentLink); // Redirect user to the payment page
     } else {
@@ -56,7 +55,7 @@ export const subscriptionFee = async (req, res) => {
 };
 
 
-export const verifyPayment = async (req, res) => {
+ const verifyPayment = async (req, res) => {
   const { reference, userId, plan} = req.query;
 
   if (!reference || !userId) {
@@ -76,24 +75,9 @@ export const verifyPayment = async (req, res) => {
 
     if (response.data.status && response.data.data.status === 'success') {
       // Payment verified; update user's subscription
-      const planDetails = {
-        Standard: { price: 1000, emailLimit: 1000 }, // Define your plans
-        Premium: { price: 5000, emailLimit: 5000 },
-      };
+     
 
-      const selectedPlan = planDetails[plan];
-
-      await User.findByIdAndUpdate(userId, {
-        subscription: {
-          plan,
-          startDate: new Date(),
-          endDate: new Date(new Date().setMonth(new Date().getMonth() + 1)), // 1-month duration
-          remainingEmails: selectedPlan.emailLimit,
-          status: 'active',
-        },
-      });
-
-      return res.status(200).json({ message: 'Payment verified and subscription updated' });
+      return res.redirect('/dashboard');
     } else {
       return res.status(400).json({ message: 'Payment verification failed' });
     }
@@ -104,7 +88,7 @@ export const verifyPayment = async (req, res) => {
 };
 
 
-
+export default {subscriptionFee, verifyPayment}
 
 
 
