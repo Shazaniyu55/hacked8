@@ -456,22 +456,17 @@ app.post('/sendmail', (req, res)=>{
             });
   
   });
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', isAuthenticated, (req, res) => {
 
-    if (req.session.user) {
       res.render('dashboard', { user: req.session.user });
-    } else {
-      res.redirect('/login');
-    }
+   
   });
 
-  app.get('/mycourses', (req, res) => {
+  app.get('/mycourses', isAuthenticated, (req, res) => {
 
-    if (req.session.user) {
+   
       res.render('mycourses', { user: req.session.user });
-    } else {
-      res.redirect('/login');
-    }
+   
   }); 
 
 
@@ -490,15 +485,11 @@ app.get('/:room',(req,res) => {
   res.render("index1",{roomId: req.params.room})
 })
 
-app.get('/videocall',(req,res) => {
+app.get('/videocall', isAuthenticated, (req,res) => {
 // res.send("Hello World")
 res.redirect(`/${uuidv4()}`);
 })
 
-
-// app.listen(port, ()=>{
-//     console.log(`server running at port http://localhost:${port}`)
-// });
 
 /** catch 404 and forward to error handler */
 app.use('*', (req, res) => {
