@@ -110,5 +110,5 @@ disconnectBtn.addEventListener("click",() => {
     myVideoElement.remove();
   }
   socket.emit("disconnect");
-  window.location.href = "https://www.google.com";
+  window.location.href = "http://localhost:3100/dashboard";
 })

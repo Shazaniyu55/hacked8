@@ -355,10 +355,7 @@ app.set('views', path.join(__dirname, 'views'));
  */
 
 
-app.get('/videocall',(req,res) => {
-    // res.send("Hello World")
-    res.redirect(`/${uuidv4()}`);
-  })
+
   
 
 //const user = null
@@ -468,9 +465,27 @@ app.post('/sendmail', (req, res)=>{
     }
   });
 
+
+//logout rout to destroy all the sessions
+app.get('/remove', (req, res) => {
+  req.session.destroy(err => {
+      if (err) {
+          return res.status(500).json({ status: "Failed", message: err.message });
+      }
+      res.redirect('/home'); // Redirect to login page after logout
+  });
+});
+
+
 app.get('/:room',(req,res) => {
-    res.render("index1",{roomId: req.params.room})
+  res.render("index1",{roomId: req.params.room})
 })
+
+app.get('/videocall',(req,res) => {
+// res.send("Hello World")
+res.redirect(`/${uuidv4()}`);
+})
+
 
 // app.listen(port, ()=>{
 //     console.log(`server running at port http://localhost:${port}`)
@@ -487,7 +502,7 @@ app.use('*', (req, res) => {
 server.listen(port);
 /** Event listener for HTTP server "listening" event. */
 server.on("listening", () => {
-  console.log(`Listening on port:: http://localhost:${port}/`)
+  console.log(`Listening on port:: http://localhost:${port}/home`)
 });
 
 export default app
