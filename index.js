@@ -68,7 +68,7 @@ app.use(session({
   }));
   
 app.use(cors({
-    origin: "http://localhost:3100",          // Removed the trailing slash
+    origin: "https://hacked-backend.vercel.app",          // Removed the trailing slash
     methods: 'GET, POST, PUT, DELETE',       // Methods allowed
     allowedHeaders: 'Content-Type, Authorization' // Corrected 'authorization' to 'Authorization'
   }));
