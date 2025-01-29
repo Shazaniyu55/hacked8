@@ -20,6 +20,8 @@ import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
 import courseData from "./coursedata.js";
 import nodemailer from 'nodemailer';
+import MongoStore from "connect-mongo";
+
 // Define __dirname equivalent in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,6 +63,7 @@ app.use(session({
     secret: 'hacked8_password', // Replace with your own secret
     resave: false,
     saveUninitialized: true,
+    store:MongoStore.create({mongoUrl: process.env.MONGODB_CONNECTION}),
     cookie: { secure: false } // Set to true if using HTTPS
   }));
   
