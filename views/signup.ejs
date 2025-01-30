@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacked8 Academy</title>
+  <link rel="stylesheet" href="/signup.css">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Poppins:wght@400;500&display=swap"
+	  rel="stylesheet">
+</head>
+<body>
+    <header>
+      <img src="/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
+        <nav>
+          <button class="signup-button"><a href="/login" style="text-decoration: none; color: white;">Login</a> </button>
+        </nav>
+      </header>
+    <div class="login-container">
+       
+    
+        <main class="login-card">
+          <h2>Signup</h2>
+          <p>Hey, enter your details to create account</p>
+    
+          <form>
+            <!-- Email Input -->
+
+            <div class="input-group">
+                <span class="input-icon">✉️</span>
+                <input type="email" placeholder="Enter your Fullname" required>
+              </div>
+
+            <div class="input-group">
+              <span class="input-icon">✉️</span>
+              <input type="email" placeholder="Enter your Email" required>
+            </div>
+    
+            <!-- Password Input -->
+            <div class="input-group">
+              <span class="input-icon">🔒</span>
+              <input type="password" placeholder="Enter your password" id="password" required>
+              <span class="toggle-password">🙈</span>
+            </div>
+    
+          <div class="noti">
+           <p><input type="checkbox" name="" id="">
+            send me notifications and learning tips</p>
+          </div>
+    
+            <button type="submit" class="login-button">Login</button>
+          </form>
+
+          <p class="info">By signing up, you agree to <a href="">Terms of use</a> and <a href="">Privacy policy</a></p>
+    
+          <p class="register-text">
+            Already have an account? <a href="/login" class="register-link">Login</a>
+          </p>
+        </main>
+      </div>
+
+  <script src="/js/signup.js"></script>
+</body>
+</html>

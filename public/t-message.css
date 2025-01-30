@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.left{
+    display: flex;
+    gap: 10px;
+}
+
+.page {
+    width: 100%;
+    /* max-width: 600px; */
+    display: block;
+    height: 73vh;
+    padding: 0px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.container {
+    text-align: center;
+}
+
+#groupList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#groupList li {
+    background: #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#groupList li:hover {
+    background-color: #ff8d0af0;
+}
+
+.hidden {
+    display: none;
+}
+
+#chatMessages {
+    height: 90%;
+    overflow-y: auto;
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-x: hidden;
+}
+
+#backBtn{
+    display: none;
+    background-color: #8d8f8d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#backBtn.active{
+    display: block;
+}
+.chat-input {
+    margin-top: 10px;
+}
+
+.chat-input input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.chat-input button {
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h2 {
+    margin: 0;
+}
+
+.chat-message{
+    color: black;
+    background-color: #777777;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 70%;
+    padding: 5px 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.me{
+    margin-left: 25%;
+    background-color: #d67900;
+    color: black;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 436px){
+
+
+    .chat-input input {
+        width: 70%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .chat-input button {
+        padding: 10px;
+        margin-left: 00px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+    }
+
+}

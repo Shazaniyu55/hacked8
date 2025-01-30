@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CodeMirror CSS and JS CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/t-message.css">
+
+	<title>Dashboard</title>
+
+	<style>
+		 /* Profile Container */
+         .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #4CAF50;
+        }
+
+        .profile-container h1 {
+            font-size: 24px;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .profile-container p {
+            color: #666;
+        }
+
+        /* Course List */
+        .courses-container {
+            width: 90%;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .course-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-card h3 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 10px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4caf50;
+            transition: width 0.5s ease-in-out;
+        }
+
+
+
+	</style>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		
+		<ul class="side-menu top">
+			<li >
+				<a href="/dashboard">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/course">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">My Courses</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#">
+					<i class='bx bxs-book' ></i>
+					<span class="text">Take Quiz</span>
+				</a>
+			</li>
+			
+			<li >
+				<a href="/dashboard/message">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Message</span>
+				</a>
+			</li>
+
+
+
+            <li>
+				<a href="/dashboard/exams">
+					<i class='bx bx-laptop'></i>
+					<span class="text">Exams</span>
+				</a>
+			</li>
+<!-- 
+			<li>
+				<a href="/dashboard/profile/<%= user.user_id %>">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Profile</span>
+				</a>
+			</li> -->
+			
+		</ul>
+		<ul class="side-menu">
+			
+			<li>
+				<a href="/remove" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="/home" class="nav-link">Hacked8</a>
+			
+		
+			
+            <a href="/videocall"><i class='bx bx-video' style="cursor: pointer;"></i></a>
+			<a href="/profile"><i class='bx bx-user' style="cursor: pointer;"></i></a>
+
+			
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			
+		
+
+
+
+
+            <div class="profile-container">
+                <img src="https://via.placeholder.com/100" alt="User Profile">
+                <h1><%= user.firstname %> <%= user.lastname %></h1>
+                <p>Email: <%= user.email %></p>
+            </div>
+
+
+            <!-- Course List -->
+    <div class="courses-container" id="course-list"></div>
+			
+
+
+			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<!-- Textarea for CodeMirror -->
+
+   
+
+	<script>
+        const API_URL = "http://localhost:3100";
+
+        // Fetch courses and display them
+        async function fetchCourses() {
+            const response = await fetch(`${API_URL}/courses`);
+            const courses = await response.json();
+
+            const courseList = document.getElementById("course-list");
+            courseList.innerHTML = "";
+
+            courses.forEach(course => {
+                const progress = calculateProgress(course);
+
+                const courseCard = document.createElement("div");
+                courseCard.classList.add("course-card");
+                courseCard.innerHTML = `
+                    <h3>${course.title}</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${progress}%"></div>
+                    </div>
+                    <p>Progress: ${progress}%</p>
+                `;
+
+                courseList.appendChild(courseCard);
+            });
+        }
+
+        function calculateProgress(course) {
+            const totalTopics = course.topics.length;
+            const completedTopics = course.topics.filter(topic => topic.completed).length;
+            return ((completedTopics / totalTopics) * 100).toFixed(2);
+        }
+
+        fetchCourses();
+    </script>
+
+	<script src="/dash.js"></script>
+</body>
+</html>

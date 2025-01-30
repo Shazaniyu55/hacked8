@@ -390,7 +390,7 @@ app.get('/login', (req, res)=>{
 })
 
 app.get('/register', (req, res)=>{
-    res.render('register')
+    res.render('signup')
 })
 
 app.get('/cbt', isAuthenticated,  (req, res)=>{
@@ -459,9 +459,41 @@ app.post('/sendmail', (req, res)=>{
             });
   
   });
+
+
+  app.get('/dashboard/course', isAuthenticated, (req, res) => {
+
+  
+    res.render('dashboard/course', { user: req.session.user, courseData});
+
+  });
+
+
+  app.get('/dashboard/exams',isAuthenticated, (req, res) => {
+
+    res.render('dashboard/exams', { user: req.session.user, courseData });
+
+  });
+
+
+  app.get('/dashboard/message',isAuthenticated, (req, res) => {
+
+   
+    res.render('dashboard/message', { user: req.session.user });
+ 
+  });
+
+  app.get('/profile',isAuthenticated, (req, res) => {
+
+   
+    res.render('dashboard/profile', { user: req.session.user });
+ 
+  });
+  
+  
 app.get('/dashboard', isAuthenticated, (req, res) => {
 
-      res.render('dashboard', { user: req.session.user });
+      res.render('dashboard/dashboard', { user: req.session.user });
    
   });
 
