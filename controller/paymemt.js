@@ -1,22 +1,34 @@
-import User from "../model/user.js";
+import UserModel from "../model/user.js";
 import  axios from  "axios";
+import CourseModel from '../model/course.js';
+import courseData from '../coursedata.js';
+import mongoose from 'mongoose';
 // import { verify } from 'jsonwebtoken';
 // require("dotenv").config();
 
 
 
  const subscriptionFee = async (req, res) => {
-  const { email, fname, price, userId } = req.body;
+  const { email, fname, price, userId, coursename, coursedesc, courseImg, coursetopics, pdfurl  } = req.body;
+// Parse coursetopics if it's a string
+ const topics = JSON.parse(coursetopics);
+ console.log(topics)
 
   const paymentData = {
-    public_key: process.env.PUBLIC_KEY,
     email: email,
-    name: fname,
-    currency: 'NGN',
-    source: 'docs-html-test',
+    name: coursename,
     user: userId,
-    amount: price 
+    img:courseImg,
+    amount: price ,
+    ispaid: true,
+    description: coursedesc,
+    topics:topics,
+    pdf:pdfurl
+
+
   };
+
+  console.log(paymentData)
 
   try {
     // Make the API request to Paystack
@@ -41,8 +53,8 @@ import  axios from  "axios";
       paymentData.tx_ref = tx_ref;
 
       // Save the payment data to your database
-      // const payment = new Subscribe(paymentData);
-      // await payment.save();
+      const payment = await CourseModel.create(paymentData);
+      //await payment.save();
       
       res.redirect(paymentLink); // Redirect user to the payment page
     } else {
@@ -55,38 +67,37 @@ import  axios from  "axios";
 };
 
 
- const verifyPayment = async (req, res) => {
-  const { reference, userId, plan} = req.query;
-
-  if (!reference || !userId) {
-    return res.status(400).json({ success: false, message: 'Missing required parameters' });
-  }
+const verifyPayment = async (req, res) => {
+  const { reference, userId, courseId } = req.query;
 
   try {
-    // Verify payment with Paystack
-    const response = await axios.get(
-      `https://api.paystack.co/transaction/verify/${reference}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRETE}`, // Replace with your Paystack secret key
-        },
+      const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
+          headers: {
+              Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`
+          }
+      });
+
+      if (response.data.status && response.data.data.status === 'success') {
+        // const course = await CourseModel.findById(courseId);
+        // if (!course) {
+        //     return res.status(404).json({ success: false, message: 'Course not found' });
+        // }
+          // Update the user's course status
+          const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { $addToSet: { purchasedCourses: new mongoose.Types.ObjectId(courseId) } }, // Avoid duplicate entries
+            { new: true }
+        );
+         return res.redirect('/dashboard');
+        //res.json({ success: true, message: 'Payment verified, course unlocked', user: updatedUser });
+      } else {
+          res.status(400).json({ success: false, message: 'Payment verification failed' });
       }
-    );
-
-    if (response.data.status && response.data.data.status === 'success') {
-      // Payment verified; update user's subscription
-     
-
-      return res.redirect('/dashboard');
-    } else {
-      return res.status(400).json({ message: 'Payment verification failed' });
-    }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'An error occurred during verification' });
+      console.error('Error verifying payment:', error);
+      res.status(500).json({ success: false, message: 'Payment verification error' });
   }
 };
-
 
 export default {subscriptionFee, verifyPayment}
 

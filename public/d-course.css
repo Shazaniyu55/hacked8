@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+.toc{
+    margin-top: 50px;
+}
+.toc .cl a {
+    color: black;
+}
+.toc .cl a i{
+    padding: 10px;
+    background-color: #ccc;
+    border-radius: 40px;
+}
+.toc h2{
+    text-align: center;
+    font-weight: 400;
+}
+.toc ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    justify-self: center;
+}
+.toc ul li a{
+    color: black;
+}

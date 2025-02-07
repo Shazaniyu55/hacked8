@@ -123,12 +123,12 @@ td .progress-container {
 				</a>
 			</li>
 
-			<li>
+			<!-- <li>
 				<a href="#">
 					<i class='bx bxs-book' ></i>
 					<span class="text">Take Quiz</span>
 				</a>
-			</li>
+			</li> -->
 			
 			<li>
 				<a href="/dashboard/message">
@@ -200,39 +200,40 @@ td .progress-container {
 
 
 			<div class="courses">
-                <% courseData.forEach(function(product) { %>
-                <section class="course-card">
-                    <img src="<%= product.img %>" alt="course image" class="course-image">
-                    <p class="namec"><%= product.title %></p>
-                    <p class="desc"><%= product.description %></p>
-
-                    <button style="
-                    background-color: hsla(32, 100%, 52%, 0.941);
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    margin: 10px;
-                    font-weight: bold;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                ">
-                    View PDF
-                </button>
-                                   
-                    <!-- <section class="progress">
-                        <section class="d-progress"></section>
-                    </section> -->
-                </section>
-
-
-             
-
-                <% }); %>
-
+                <% if (coursePdf.length > 0) { %>
+                    <% coursePdf.forEach(function(product) { %>
+                        <section class="course-card">
+                            <img src="<%= product.img %>" alt="course image" class="course-image">
+                            <p class="namec"><%= product.name %></p>
+                            <p class="desc"><%= product.description %></p>
+            
+                            <a href="/dashboard/courses/d-course/<%= product._id %>">
+                                <button style="
+                                    background-color: hsla(32, 100%, 52%, 0.941);
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    font-size: 16px;
+                                    margin: 10px;
+                                    font-weight: bold;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    margin-top: 30px;
+                                    transition: background-color 0.3s ease;
+                                ">
+                                    View PDF
+                                </button>
+                            </a> 
+                        </section>
+                    <% }); %>
+                <% } else { %>
+                    <p style="text-align: center; font-size: 18px; color: #777; margin-top: 20px;">
+                        You Have not purchase any course at the moment.
+                    </p>
+                   
+                <% } %>
             </div>
-
+            
 
 
 

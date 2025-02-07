@@ -21,7 +21,7 @@ import { fileURLToPath } from 'url';
 import courseData from "./coursedata.js";
 import nodemailer from 'nodemailer';
 import MongoStore from "connect-mongo";
-
+import CourseModel from "./model/course.js";
 // Define __dirname equivalent in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -81,6 +81,7 @@ app.use("/api-docs", swaggerui.serve, swaggerui.setup(swaggerSpec, {
 customCssUrl: CSS_URL,
 }));
 import {ExpressPeerServer} from "peer";
+import course from "./model/course.js";
 const peerServer = ExpressPeerServer(server,{
     debug: true
 });
@@ -381,9 +382,89 @@ app.get('/home', (req, res)=>{
 })
 
 // Get all courses
-app.get('/courses', (req, res) => {
-  res.json(courseData);
+app.get('/courses', async(req, res) => {
+  try {
+    const courseData = await CourseModel.find();
+    res.json(courseData);
+  } catch (error) {
+    res.status(500).send('Error fetching products');
+  }
+   
 });
+
+
+app.get('/dashboard/courses/d-course/:courseId', async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    
+    // Check if courseId is a MongoDB ObjectId or a custom field
+    const courseDatapaid = await CourseModel.findById(courseId); // If using MongoDB's default _id
+
+    // If courseId is a custom field, use:
+    // const courseDatapaid = await CourseModel.findOne({ courseId });
+
+    if (!courseDatapaid) {
+      return res.status(404).json({ status: 'failed', message: 'Course not found' });
+    }
+
+    res.render('dashboard/courses/d-course', { user: req.session.user, courseDatapaid });
+  } catch (error) {
+    res.status(500).json({ status: 'failed', message: error.message });
+  }
+});
+
+
+// app.get('/dashboard/courses/d-course/:courseId', async (req, res) => {
+//   try {
+//     const courseId = req.params.courseId;
+//     const courseDatapaid = await CourseModel.findOne({courseId}); // or findById('someCourseId')
+//     if (!courseDatapaid) {
+//       return res.status(404).json({ status: 'failed', message: 'Course not found' });
+//     }
+//     res.render('dashboard/courses/d-course', { user: req.session.user, courseDatapaid });
+//   } catch (error) {
+//     res.status(500).json({ status: 'failed', message: error.message });
+//   }
+// });
+
+
+app.get('/dashboard/courses/course-text/:courseId', async (req, res) => {
+  try {
+    const { courseId } = req.params; // Get courseId from URL
+
+    // Fetch course by ID
+    const coursedatapaid = await CourseModel.findById(courseId);
+
+    if (!coursedatapaid) {
+      return res.status(404).json({ status: 'failed', message: 'Course not found' });
+    }
+
+    // Render the page with the course data
+    res.render('dashboard/courses/course-text', { user: req.session.user, coursedatapaid });
+  } catch (error) {
+    res.status(500).json({ status: 'failed', message: error.message });
+  }
+});
+
+app.post('/completeCourse', async (req, res) => {
+  try {
+    const { courseId } = req.body;
+
+    const course = await CourseModel.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ status: 'failed', message: 'Course not found' });
+    }
+
+    // Update all topics to completed
+    course.topics.forEach(topic => topic.completed = true);
+    await course.save();
+
+    res.json({ status: 'success', message: 'Course marked as completed' });
+  } catch (error) {
+    res.status(500).json({ status: 'failed', message: error.message });
+  }
+});
+
 
 app.get('/login', (req, res)=>{
     res.render('login')
@@ -461,29 +542,40 @@ app.post('/sendmail', (req, res)=>{
   });
 
 
-  app.get('/dashboard/course', isAuthenticated, (req, res) => {
+app.get('/dashboard/course', isAuthenticated, async(req, res) => {
 
+    try {
+      const coursePdf = await CourseModel.find();
+      res.render('dashboard/course', { user: req.session.user, coursePdf});
+
+    } catch (error) {
+      res.status(500).send('Error fetching products');
+    }
   
-    res.render('dashboard/course', { user: req.session.user, courseData});
 
   });
 
 
-  app.get('/dashboard/exams',isAuthenticated, (req, res) => {
+app.get('/dashboard/exams',isAuthenticated, async(req, res) => {
+    try {
+      const coursePdf = await CourseModel.find();
+      res.render('dashboard/exams', { user: req.session.user, coursePdf });
 
-    res.render('dashboard/exams', { user: req.session.user, courseData });
+    } catch (error) {
+      res.status(500).send('Error fetching products');
+    }
 
   });
 
 
-  app.get('/dashboard/message',isAuthenticated, (req, res) => {
+app.get('/dashboard/message',isAuthenticated, (req, res) => {
 
    
     res.render('dashboard/message', { user: req.session.user });
  
   });
 
-  app.get('/profile',isAuthenticated, (req, res) => {
+app.get('/profile',isAuthenticated, (req, res) => {
 
    
     res.render('dashboard/profile', { user: req.session.user });

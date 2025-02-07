@@ -10,7 +10,8 @@ import frontendExamData from "../cbtdatafrontend.js";
 import Course from "../model/course.js";
 // import Chat from "../model/chat.js";
 import { v4 as uuidv4 } from 'uuid';
-
+import cloudinary from "../cloudinary.js";
+import streamifier from 'streamifier';
 dotenv.config();
 // utils
 import makeValidation from '@withvoid/make-validation';
@@ -424,6 +425,7 @@ const logIn = async (req, res) => {
             firstname: user.firstName,
             lastname: user.lastName,
             email: user.email,
+            profilePic: user.profilePic
         };
 
         res.redirect('/dashboard');
@@ -486,11 +488,39 @@ const generateExamId = (userId) => {
   };
 
 
+// API route to handle profile image upload
+const addImage = async(req, res)=>{
+    try {
+        const {userId} = req.body
+        if (!req.file) {
+          return res.status(400).json({ message: "No file uploaded" });
+        }
+    
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: "profile_pictures" },
+          async (error, result) => {
+            if (error) return res.status(500).json({ error: error.message });
+    
+            // Save the image URL to your database (example)
+            const imageUrl = result.secure_url;
+    
+            // Assuming you have a user model (MongoDB example)
+            await User.findByIdAndUpdate(userId, { profilePic: imageUrl });
+    
+            res.json({ imageUrl });
+          }
+        );
+    
+        streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
 
+}
 
 
   export default {
-
+    addImage,
     getUserById,
     signUp, 
     logIn, 

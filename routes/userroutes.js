@@ -3,11 +3,12 @@ import hacked from '../controller/usercontroller.js';
 import requestIp from "request-ip";
 // import { encode } from '../middleware/jwts.js';
 const router = express.Router();
-
+import multer from 'multer';
 import  user from '../controller/usercontroller.js';
 // Array to store IP addresses
 let userIpList = [];
-
+// Multer setup for handling file uploads
+const upload = multer();
 //get routes
 router.get('/course', hacked.getAllCourse);
 router.get('/course/:id', hacked.buyCourse);
@@ -31,7 +32,7 @@ router.get('/exam-login', (req, res)=>{
     res.json({ message: 'IP recorded', ip, userIpList });
 });
 
-
+router.post('/upload-profile', upload.single('image'), hacked.addImage)
 //post routes
 router.post('/uploadCourse', hacked.uploadCourse);
 router.post('/chat', hacked.createchat);

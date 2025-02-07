@@ -1,6 +1,68 @@
 
 
 
+
+
+
+
+.popup{
+    display: none;
+    z-index: 99999;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000085;
+    align-items: center;
+    justify-items: center;
+}
+.popup.active{
+    display: block;
+}
+.popup .d-pop{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    padding: 30px;
+    margin-top: 10%;
+    background-color: #fff;
+    align-self: center;
+    text-align: center;
+
+}
+.popup .d-pop .close{
+    /* position: absolute; */
+    margin-left: 95%;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.popup .d-pop .close:hover{
+    background-color: red;
+}
+.popup .d-pop p{
+    font-size: 20px;
+}
+.popup .d-pop select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #cccccc77;
+}
+.popup .d-pop button{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #ff9000;
+    color: white;
+    cursor: pointer;
+}
+
 .d-exams{
     display: flex;
     flex-wrap: wrap;
@@ -19,6 +81,7 @@
 }
 .exam-card img {
     width: 100%;
+    height: 250px;
     opacity: 0.3;
     transition: opacity 0.3s;
 }

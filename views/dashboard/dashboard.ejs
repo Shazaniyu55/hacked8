@@ -125,12 +125,12 @@ td .progress-container {
 				</a>
 			</li>
 
-			<li>
+			<!-- <li>
 				<a href="#">
 					<i class='bx bxs-book' ></i>
 					<span class="text">Take Quiz</span>
 				</a>
-			</li>
+			</li> -->
 			
 			<li>
 				<a href="/dashboard/message">
@@ -202,10 +202,10 @@ td .progress-container {
 				</div>
 				
 			</div>
-			<div class="courses-section">
+			<!-- <div class="courses-section">
                 <h2>Write Your Code</h2>
-                <textarea id="code-editor"></textarea> <!-- Textarea for the code editor -->
-            </div>
+                <textarea id="code-editor"></textarea> 
+            </div> -->
 
 			<!-- -->
 
@@ -254,15 +254,15 @@ td .progress-container {
 
 	<script>
 		 // Initialize CodeMirror
-		 const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-    lineNumbers: true, // Show line numbers
-    mode: "htmlmixed",  // Set the mode to HTML/JS/CSS
-    theme: "dracula",   // Set the theme (you can use other themes too)
-    htmlMode: true,     // Allow HTML-specific syntax highlighting
-    tabSize: 2,         // Set the tab size
-    indentUnit: 2,      // Set the indentation size
-    lineWrapping: true, // Allow line wrapping
-  });
+// 		 const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+//     lineNumbers: true, // Show line numbers
+//     mode: "htmlmixed",  // Set the mode to HTML/JS/CSS
+//     theme: "dracula",   // Set the theme (you can use other themes too)
+//     htmlMode: true,     // Allow HTML-specific syntax highlighting
+//     tabSize: 2,         // Set the tab size
+//     indentUnit: 2,      // Set the indentation size
+//     lineWrapping: true, // Allow line wrapping
+//   });
 
 		const API_URL = "http://localhost:3100";
 
@@ -270,6 +270,7 @@ td .progress-container {
 async function fetchCourses() {
     const response = await fetch(`${API_URL}/courses`);
     const courses = await response.json();
+	console.log(courses)
     
     let totalProgress = 0;
     let totalCourses = courses.length;
@@ -286,11 +287,11 @@ async function fetchCourses() {
 
         const courseItem = document.createElement("tr");
         courseItem.innerHTML = `
-            <h3>${course.title} - <span id="progress-${course.id}"></span></h3>
+            <h3>${course.name} - <span id="progress-${course._id}"></span></h3>
 			<td>
 				 ${progress}% 
             <div class="progress-container">
-                <div id="progress-bar-${course.id}" class="progress-bar" style="width: ${progress}%;"></div>
+                <div id="progress-bar-${course._id}" class="progress-bar" style="width: ${progress}%;"></div>
             </div>
            
 
@@ -309,6 +310,7 @@ async function fetchCourses() {
 // Calculate progress for a single course
 function calculateProgress(course) {
     const totalTopics = course.topics.length;
+	console.log(totalTopics)
     const completedTopics = course.topics.filter(topic => topic.completed).length;
     return ((completedTopics / totalTopics) * 100).toFixed(2);
 }

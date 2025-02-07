@@ -22,6 +22,39 @@
 	<title>Dashboard</title>
 
 	<style>
+
+.profile-image {
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-image img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid #4CAF50;
+    }
+
+    .edit-icon {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: #4CAF50;
+        color: white;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .edit-icon:hover {
+        background: #45a049;
+    }
 		 /* Profile Container */
          .profile-container {
             display: flex;
@@ -190,7 +223,13 @@
 
 
             <div class="profile-container">
-                <img src="https://via.placeholder.com/100" alt="User Profile">
+                <div class="profile-image">
+                    <img id="profile-pic" src="<%= user.profilePic %>" alt="User Profile">
+                    <label for="upload-pic" class="edit-icon">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="upload-pic" accept="image/*" style="display: none;">
+                </div>
                 <h1><%= user.firstname %> <%= user.lastname %></h1>
                 <p>Email: <%= user.email %></p>
             </div>
@@ -227,7 +266,7 @@
                 const courseCard = document.createElement("div");
                 courseCard.classList.add("course-card");
                 courseCard.innerHTML = `
-                    <h3>${course.title}</h3>
+                    <h3>${course.name}</h3>
                     <div class="progress-container">
                         <div class="progress-bar" style="width: ${progress}%"></div>
                     </div>
@@ -245,6 +284,38 @@
         }
 
         fetchCourses();
+
+        document.getElementById("upload-pic").addEventListener("change", async function (event) {
+    const file = event.target.files[0];
+    const userId = "b76c7b76016b4a9789729ba27e80037e"; // Replace with actual user ID (e.g., from localStorage or a global variable)
+
+    if (file) {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("userId", userId); // Send user ID to backend
+
+        try {
+            const response = await fetch("http://localhost:3100/api/auth/upload-profile", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById("profile-pic").src = data.imageUrl;
+                alert("Profile picture updated!");
+            } else {
+                alert("Error: " + (data.error || "Failed to update profile picture"));
+            }
+        } catch (error) {
+            console.error("Upload failed:", error);
+            alert("An error occurred while uploading.");
+        }
+    }
+});
+
+
     </script>
 
 	<script src="/dash.js"></script>

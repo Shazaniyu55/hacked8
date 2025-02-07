@@ -106,6 +106,27 @@ td .progress-container {
 <body>
 
 
+
+    <div class="popup">
+        <div class="d-pop">
+            <div class="close">
+                <i class="fa fa-close"></i>
+            </div>
+            <p>Pick your level of exam</p>
+            <form action="">
+                <select name="level" id="sl">
+                    <option value="">--Select your level</option>
+                    <option value="basic">Basic</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                
+                    <button type="submit" class="sub">Start</button>
+               
+            </form>
+        </div>
+    </div>
+
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		
@@ -123,12 +144,12 @@ td .progress-container {
 				</a>
 			</li>
 
-			<li>
+			<!-- <li>
 				<a href="#">
 					<i class='bx bxs-book' ></i>
 					<span class="text">Take Quiz</span>
 				</a>
-			</li>
+			</li> -->
 			
 			<li>
 				<a href="/dashboard/message">
@@ -192,60 +213,37 @@ td .progress-container {
 					
 				</div>
 				
-			</div>
+
+            </div>
 			
 
 
 
+            
+
         
 
-            <div class="exams">
-
-                <div class="d-exams">
-                    <% courseData.forEach(function(product) { %>
-                     <div class="exam-card" data-status="locked">
-                        <h2><%= product.title %></h2>
+             <!-- Exams Section -->
+    <div class="exams">
+        <div class="d-exams">
+            <% if (coursePdf.length > 0) { %>
+                <% coursePdf.forEach(function(course) { %>
+                    <div class="exam-card" data-course-id="<%= course._id %>" data-status="locked">
+                        <h2><%= course.name %></h2>
                         <p>Complete the course to unlock the exam.</p>
-                        <img src="<%= product.img %>" alt="Exam Image">
-                        <div class="status-icon locked"><i class='fa-solid fa-x' style='color: #ff0000;'></i></div>
+                        <img src="<%= course.img %>" alt="Exam Image">
+                        <div class="status-icon locked">
+                            <abbr title="Locked"><i class='bx bxs-lock-alt' style='color:#ff9000'></i></abbr>
+                        </div>
                     </div>
-
-                    <% }); %>
-
-
-
-                 
-
-
-                  
-
-
-                   
-
-
-                  
-
-
-
-
-                </div>
-  
-
-<!-- failed
-<abbr title="Failed"><i class='fa-solid fa-x' style='color: #ff0000;'></i></abbr> -->
-
-<!-- Locked
-<abbr title='Locked'><i class='bx bxs-lock-alt' style='color:#ff9000' ></i></abbr> -->
-
-
-<!-- Unlocked
-<abbr title='Unlocked'><i class='fa-solid fa-unlock' style='color: #ff9000;'></i></abbr> -->
-
-
-<!-- passed
-<abbr title='Passed'><i class='fa-solid fa-check' style='color: #00ff11;'></i></abbr> -->
-
-            </div>
+                <% }); %>
+            <% } else { %>
+                <p style="text-align: center; font-size: 18px; color: #777; margin-top: 20px;">
+                    No Exams available at the moment.
+                </p>
+            <% } %>
+        </div>
+    </div>
 			
 
 
@@ -278,160 +276,75 @@ td .progress-container {
 	<!-- CONTENT -->
 	<!-- Textarea for CodeMirror -->
 
-
     <script>
+        const API_URL = "http://localhost:3100";
+
+        async function fetchCourses() {
+            const response = await fetch(`${API_URL}/courses`);
+            const courses = await response.json();
+            console.log(courses);
+
+            courses.forEach(course => {
+                const progress = calculateProgress(course);
+                console.log(`Progress for course ${course._id}: ${progress}%`);
+
+                // Find the matching exam card for this course
+                const examCard = document.querySelector(`.exam-card[data-course-id="${course._id}"]`);
+                if (examCard) {
+                    let status = progress === 100 ? "unlocked" : "locked";
+                    updateExamStatus(examCard, status);
+                }
+            });
+        }
+
+        function calculateProgress(course) {
+            if (!course.topics || course.topics.length === 0) return 0;
+
+            const totalTopics = course.topics.length;
+            const completedTopics = course.topics.filter(topic => topic.completed).length;
+
+            let progress = ((completedTopics / totalTopics) * 100).toFixed(2);
+            return parseFloat(progress);
+        }
+
         function updateExamStatus(card, status) {
-    const icon = card.querySelector(".status-icon");
-    icon.className = "status-icon"; // Reset classes
-    card.setAttribute("data-status", status);
+            const icon = card.querySelector(".status-icon");
+            icon.className = "status-icon";
+            card.setAttribute("data-status", status);
 
-    switch (status) {
-        case "unlocked":
-            icon.innerHTML = "<abbr title='Unlocked'><i class='fa-solid fa-unlock' style='color: #ff9000;'></i></abbr>";
-            icon.classList.add("unlocked");
-            card.classList.add("clickable"); // Make the exam clickable
-            card.onclick = () => window.location.href = "#"; // Change to your exam link
-            icon.style.opacity = "0"; // Remove the overlay
-            break;
-        
-        case "passed":
-            icon.innerHTML = "<abbr title='Passed'><i class='fa-solid fa-check' style='color: #00ff11;'></i></abbr>";
-            icon.classList.add("passed");
-            card.classList.add("clickable");
-            card.onclick = () => window.location.href = "#"; // Change as needed
-            icon.style.opacity = "1"; // Ensure the icon is visible
-            break;
-        
-        case "failed":
-            icon.innerHTML = "<abbr title='Failed'><i class='fa-solid fa-x' style='color: #ff0000;'></i></abbr>";
-            icon.classList.add("failed");
-            card.classList.add("clickable");
-            card.onclick = () => window.location.href = "#"; // Change as needed
-            icon.style.opacity = "1";
-            break;
-        
-        default: // Locked
-            icon.innerHTML = "<abbr title='Locked'><i class='bx bxs-lock-alt' style='color:#ff9000' ></i></abbr>";
-            icon.classList.add("locked");
-            card.classList.remove("clickable"); // Prevent clicking
-            card.onclick = null; // Disable navigation
-            icon.style.opacity = "1"; // Ensure the lock is visible
-    }
-}
+            switch (status) {
+                case "unlocked":
+                    icon.innerHTML = "<abbr title='Unlocked'><i class='fa-solid fa-unlock' style='color: #ff9000;'></i></abbr>";
+                    icon.classList.add("unlocked");
+                    card.classList.add("clickable");
+                    card.onclick = () => document.querySelector(".popup").classList.add("active");
+                    break;
 
+                case "locked":
+                default:
+                    icon.innerHTML = "<abbr title='Locked'><i class='bx bxs-lock-alt' style='color:#ff9000'></i></abbr>";
+                    icon.classList.add("locked");
+                    card.classList.remove("clickable");
+                    card.onclick = null;
+            }
+        }
 
- // Example status variable for testing (change this value to test different statuses)
-let testStatus = "failed"; // Change this to "unlocked", "passed", or "failed"
+        fetchCourses();
 
-// Select all exam cards
-const examCards = document.querySelectorAll(".exam-card");
+        document.querySelector(".fa-close").addEventListener("click", function(){
+            document.querySelector(".popup").classList.remove("active");
+        });
 
-// Apply the test status to all exam cards
-examCards.forEach((card) => {
-    updateExamStatus(card, testStatus);
-});
-
+        document.querySelector(".sub").addEventListener("click", function(e){
+            e.preventDefault();
+            window.location.href = '/cbt';
+        });
 
     </script>
     
 
     
 
-	<script>
-		 // Initialize CodeMirror
-		 const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-    lineNumbers: true, // Show line numbers
-    mode: "htmlmixed",  // Set the mode to HTML/JS/CSS
-    theme: "dracula",   // Set the theme (you can use other themes too)
-    htmlMode: true,     // Allow HTML-specific syntax highlighting
-    tabSize: 2,         // Set the tab size
-    indentUnit: 2,      // Set the indentation size
-    lineWrapping: true, // Allow line wrapping
-  });
-
-		const API_URL = "http://localhost:3100";
-
-// Fetch courses and update UI
-async function fetchCourses() {
-    const response = await fetch(`${API_URL}/courses`);
-    const courses = await response.json();
-    
-    let totalProgress = 0;
-    let totalCourses = courses.length;
-	console.log(totalCourses)
-
-    const courseList = document.getElementById("course-list");
-    courseList.innerHTML = "";
-
-    courses.forEach(course => {
-        const progress = calculateProgress(course);
-        totalProgress += parseFloat(progress);
-
-        const courseItem = document.createElement("tr");
-        courseItem.innerHTML = `
-            <h3>${course.title} - <span id="progress-${course.id}"></span></h3>
-			<td>
-				 ${progress}% 
-            <div class="progress-container">
-                <div id="progress-bar-${course.id}" class="progress-bar" style="width: ${progress}%;"></div>
-            </div>
-           
-
-			</td>
-        `;
-
-        courseList.appendChild(courseItem);
-    });
-
-    // Update total progress
-    let averageProgress = (totalCourses > 0) ? (totalProgress / totalCourses).toFixed(2) : 0;
-    document.getElementById("total-progress").innerText = `${averageProgress}%`;
-    document.getElementById("progress-bar").style.width = `${averageProgress}%`;
-}
-
-// Calculate progress for a single course
-function calculateProgress(course) {
-    const totalTopics = course.topics.length;
-    const completedTopics = course.topics.filter(topic => topic.completed).length;
-    return ((completedTopics / totalTopics) * 100).toFixed(2);
-}
-
-// Mark a topic as complete and update UI instantly
-async function markTopicComplete(courseId, topicId) {
-    const response = await fetch(`${API_URL}/mark-complete`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId, topicId })
-    });
-
-    if (response.ok) {
-        // Update UI instantly
-        const courseElement = document.querySelector(`#progress-${courseId}`);
-        const progressBar = document.querySelector(`#progress-bar-${courseId}`);
-
-        // Get the latest progress for the course
-        const updatedResponse = await fetch(`${API_URL}/courses`);
-        const updatedCourses = await updatedResponse.json();
-        const updatedCourse = updatedCourses.find(c => c.id === courseId);
-        const newProgress = calculateProgress(updatedCourse);
-
-        if (courseElement && progressBar) {
-            courseElement.innerText = `${newProgress}%`;
-            progressBar.style.width = `${newProgress}%`;
-        }
-
-        fetchCourses(); // Refresh all courses
-    } else {
-        console.error("Failed to mark topic as complete");
-    }
-}
-
-// Load courses on page load
-fetchCourses();
-
-
-
-	</script>
 
 	<script src="/dash.js"></script>
 </body>

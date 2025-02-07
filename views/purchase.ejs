@@ -110,6 +110,11 @@
       <img src="<%= course.img %>" alt="<%= course.name %>" class="course-img">
       <h1 class="course-title"><%= course.title %></h1>
       <p class="course-price">$<%= course.price %></p>
+      <ul>
+        <% course.topics.forEach(topic => { %>
+          <li><%= topic.title %>: <%= topic.content %></li>
+        <% }); %>
+      </ul>
       <p class="course-description"><%= course.description %></p>
     </div>
     
@@ -120,19 +125,26 @@
           
          
             <label for="email">Pay to Acquire course</label>
-            <input type="email" id="email" name="email"  value="<%= user.email %>" hidden>
+            <input type="email" id="email" name="email"  value="<%= user.email %>" >
         
 
          
-            <input type="text" id="email" name="fname"  value="<%= user.firstname %>" hidden>
+            <input type="text" id="email" name="fname"  value="<%= user.firstname %>" >
+       
+            <input type="text" id="email" name="coursename"  value="<%= course.title %>" >
+
+            <input type="text" id="email" name="coursedesc"  value="<%= course.description %>" >
+            <input type="text" id="email" name="courseImg"  value="<%= course.img %>" >
+            <input type="hidden" name="coursetopics" value='<%= JSON.stringify(course.topics) %>'>
+            <input type="text" id="email" name="pdfurl"  value="<%= course.pdfUrl %>" >
+
+
+
+            <input type="text" id="email" name="userId"  value="<%= user.user_id %>" >
        
 
          
-            <input type="text" id="email" name="userId"  value="<%= user.user_id %>" hidden>
-       
-
-         
-            <input type="text" id="email" name="price"  value="<%= course.price %>" hidden>
+            <input type="text" id="email" name="price"  value="<%= course.price %>" >
          
         
        
