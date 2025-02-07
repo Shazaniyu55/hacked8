@@ -32,7 +32,7 @@ dotenv.config();
 const server = http.createServer(app);
 /** Create socket connection */
 global.io = socketio.listen(server);
-global.io.on('connection', WebSockets.connection)
+global.io.on('connection', WebSockets.connection);
 
 
 const options = {
@@ -50,7 +50,7 @@ const options = {
     },
     apis: ['./index.js']
 }
-const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
 const swaggerSpec = swaggerjsdocs(options);
 
@@ -90,7 +90,7 @@ const peerServer = ExpressPeerServer(server,{
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger("dev"));
 app.use("/peerjs",peerServer);
-app.set('view engine','ejs')
+app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views')); 
 
 // Configure session management
@@ -374,7 +374,7 @@ function isAuthenticated(req, res, next) {
 
 app.get('/', (req, res)=>{
     res.send('welcome to Hacked8 Api server')
-})
+});
 
 
 app.get('/home', (req, res)=>{
