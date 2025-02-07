@@ -110,5 +110,5 @@ disconnectBtn.addEventListener("click",() => {
     myVideoElement.remove();
   }
   socket.emit("disconnect");
-  window.location.href = "http://localhost:3100/dashboard";
+  window.location.href = "https://hacked8-one.vercel.app/dashboard";
 })

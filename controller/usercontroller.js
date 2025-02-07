@@ -85,7 +85,7 @@ const requestPasswordReset = async (req, res) => {
 
         // Send password reset email
         //const resetUrl = `http://localhost:3500/reset-password`;
-        const resetUrl = `http://localhost:3100/reset-password?token=${resetToken}`;
+        const resetUrl = `https://hacked8-one.vercel.app/reset-password?token=${resetToken}`;
         await transporter.sendMail({
             from: 'mail-crm@gmail.com',
             to: `${email}`,

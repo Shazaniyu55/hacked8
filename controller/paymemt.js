@@ -35,7 +35,7 @@ import mongoose from 'mongoose';
     const response = await axios.post('https://api.paystack.co/transaction/initialize', {
       amount: price * 100,
       currency: 'NGN',
-      callback_url: `http://localhost:3100/api/payment/verify-payment?userId=${userId}`,
+      callback_url: `https://hacked8-one.vercel.app/api/payment/verify-payment?userId=${userId}`,
       email: email,
       name: fname,
     }, {

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch questions from API
     async function fetchQuestions() {
         try {
-            const response = await fetch("http://localhost:3100/api/auth/FE-Exam");
+            const response = await fetch("https://hacked8-one.vercel.app/api/auth/FE-Exam");
             const data = await response.json();
             console.log("API Response:", data);
 
