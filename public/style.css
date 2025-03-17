@@ -147,7 +147,6 @@
   address { font-style: normal; }
   
   html {
-    font-family: var(--ff-poppins);
     font-size: 10px;
     scroll-behavior: smooth;
   }
@@ -196,14 +195,13 @@
   .h2,
   .h3 {
     color: var(--eerie-black-1);
-    font-family: var(--ff-league_spartan);
     line-height: 1;
   }
   
   .h1,
   .h2 { font-weight: var(--fw-600); }
   
-  .h1 { font-size: var(--fs-1); }
+  .h1 { font-size: 10px; }
   
   .h2 { font-size: var(--fs-2); }
   
@@ -225,7 +223,6 @@
   .btn {
     background-color: var(--kappel);
     color: var(--white);
-    font-family: var(--ff-league_spartan);
     font-size: var(--fs-4);
     display: flex;
     align-items: center;
@@ -234,9 +231,6 @@
     padding: 10px 20px;
     border-radius: var(--radius-5);
     overflow: hidden;
-  }
-  span a{
-    
   }
   .has-before,
   .has-after {
@@ -346,7 +340,6 @@
     right: -10px;
     background-color: var(--kappel);
     color: var(--white);
-    font-family: var(--ff-league_spartan);
     font-size: var(--fs-6);
     min-width: 20px;
     height: 20px;
@@ -431,7 +424,7 @@
   
   .hero-text {
     color: var(--eerie-black-1);
-    font-size: var(--fs-4);
+    font-size: 20px;
     text-align: center;
     margin-block: 18px 20px;
   }
@@ -565,8 +558,7 @@
   }
   
   .about-item .span {
-    color: var(--eerie-black-1);
-    font-family: var(--ff-league_spartan);
+    color: var(--eerie-black-1)
   }
   
   
@@ -591,7 +583,6 @@
   .course-card:is(:hover, :focus-within) .img-cover { transform: scale(1.1); }
   
   .course-card :is(.abs-badge, .badge) {
-    font-family: var(--ff-league_spartan);
     border-radius: var(--radius-3);
   }
   
@@ -655,7 +646,6 @@
   
   .course-card .price {
     color: var(--radical-red);
-    font-family: var(--ff-league_spartan);
     font-size: var(--fs-4);
     font-weight: var(--fw-600);
     margin-block: 8px 15px;
@@ -748,7 +738,6 @@
     border-radius: var(--radius-10);
   }
   
-  .stats-card :is(.card-title, .card-text) { font-family: var(--ff-league_spartan); }
   
   .stats-card .card-title {
     color: hsl(var(--color));
@@ -883,7 +872,6 @@
   
   .footer-list-title {
     color: var(--white);
-    font-family: var(--ff-league_spartan);
     font-size: var(--fs-3);
     font-weight: var(--fw-600);
     margin-block-end: 10px;
