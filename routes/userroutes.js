@@ -41,7 +41,7 @@ router.post('/exam-start', hacked.examStart);
 
 router
   .get('/alluser', user.onGetAllUsers)
-  .post('/register', user.onCreateUser)
+  .post('/register', user.signUp)
   .get('/:id', user.onGetUserById)
   .delete('/:id', user.onDeleteUserById)
 

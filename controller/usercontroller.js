@@ -165,9 +165,9 @@ const resetPassword = async (req, res) => {
 
 const signUp = async (req, res) => {
     try {
-      const { fullname, phoneNumber, email,country,  password } = req.body;
+      const { fullname, email,  password } = req.body;
   //console.log(fullname, phoneNumber)
-      if (!fullname || !phoneNumber || !country  || !email || !password) {
+      if (!fullname  || !email || !password) {
         return res.status(400).json({ status: "Failed", message: "Please fill out all fields." });
         
       }
@@ -180,8 +180,6 @@ const signUp = async (req, res) => {
          // Create a new user with the provided data and the image URL if available
       const user = new User({
         fullname,
-        phoneNumber,
-        country,
         email,
         password,
       
@@ -201,13 +199,7 @@ const signUp = async (req, res) => {
             // Generate a JWT token
             const token = jwt.sign({ id: user._id}, 'Adain', { expiresIn: '1h' });
 
-           
-            res.status(200).json({
-                status: "Success",
-                message: "Login successful",
-                token,
-                user
-            });
+            res.redirect('/dashboard');
             
         } catch (error) {
             console.error('Error saving user:', error);
@@ -219,7 +211,7 @@ const signUp = async (req, res) => {
   
       createuser()
   
-      res.redirect('/dashboard');
+      
      
     } catch (error) {
       console.error("Error during signup:", error);
@@ -568,7 +560,7 @@ const addImage = async(req, res)=>{
   
         const { firstName, lastName, email, password, type } = req.body;
         const user = await UserModel.createUser(firstName, lastName, email, password, type);
-        return res.status(200).json({ success: true, user });
+        res.redirect('/dashboard');
       } catch (error) {
         return res.status(500).json({ success: false, error: error })
       }
