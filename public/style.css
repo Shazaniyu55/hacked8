@@ -201,7 +201,7 @@
   .h1,
   .h2 { font-weight: var(--fw-600); }
   
-  .h1 { font-size: 10px; }
+  .h1 { font-size: 40px; }
   
   .h2 { font-size: var(--fs-2); }
   
@@ -1384,11 +1384,7 @@
   .social-link:hover{
     color: var(--kappel);
   }
-  .span{
-    
-  }
-  .fre{
-  }
+
  /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -1462,3 +1458,36 @@
   transform: scale(1.1);
 }
 
+
+
+
+
+
+
+
+
+
+.product-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.product-container .product-row{
+  width: 300px;
+  margin-bottom: 20px;
+  /* padding: 0px 10px; */
+  background-color: #f0f0f0;
+  color: white;
+}
+.product-container .product-row .product-title{
+  margin-left: 15px;
+}
+.product-container .product-row .product-description{
+  width: 90%;
+  margin: auto;
+}
+.product-container .product-row .product-price{
+  margin-left: 15px;
+}

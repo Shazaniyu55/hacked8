@@ -24,16 +24,16 @@
   <!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="/images/Hacked9.png" type="image/svg+xml">
-  <link rel="stylesheet" href="/all.css">
+  <link rel="shortcut icon" href="/public/images/Hacked9.png" type="image/svg+xml">
+  <link rel="stylesheet" href="/public/all.css">
 
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/courses.css">
-  <link rel="stylesheet" href="/instructors.css">
-  <link rel="stylesheet" href="/contact.css">
+  <link rel="stylesheet" href="/public/style.css">
+  <link rel="stylesheet" href="/public/courses.css">
+  <link rel="stylesheet" href="/public/instructors.css">
+  <link rel="stylesheet" href="/public/contact.css">
 
   <!-- 
     - google font link
@@ -131,14 +131,14 @@
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
+        <img src="/public/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
       </a>
 
       <nav class="navbar" data-navbar>
 
         <div class="wrapper">
           <a href="#" class="logo">
-            <img src="/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
+            <img src="/public/images/Hacked9.png" width="60" height="60" alt="Hacked8 logo">
           </a>
 
           <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
@@ -176,31 +176,7 @@
 
       </nav>
 
-      <% if(user){ %>
-        <div class="header-actions">
-
-          <button class="header-action-btn" aria-label="toggle search" title="Search">
-            <!-- <ion-icon name="search-outline" aria-hidden="true"></ion-icon> -->
-          </button>
   
-          <!-- <button class="header-action-btn" aria-label="cart" title="Cart">
-            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon> -->
-  
-            <!-- <span class="btn-badge">0</span> -->
-          </button>
-  
-          <a href="/dashboard" class="btn has-before" style="background-color:#FFC700;">
-            welcome <%= user.firstname %>
-         
-          </a>
-  
-          <button class="header-action-btn" aria-label="open menu" data-nav-toggler>
-            <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
-          </button>
-  
-        </div>
-
-        <% } else { %>
 
           <div class="header-actions">
 
@@ -224,7 +200,7 @@
     
           </div>
           
-        <% } %>
+    
 
       
 
@@ -241,7 +217,7 @@
     <article>
 
   <section class="section hero has-bg-image" id="home" aria-label="home"
-  style="background-image: url('/images/hero-bg.s')">
+  style="background-image: url('/public/images/hero-bg.s')">
   <div class="container">
 
     <div class="hero-content">
@@ -265,16 +241,16 @@
     <figure class="hero-banner">
 
       <div class="img-holder one" style="--width: 270; --height: 300;">
-        <img src="/images/one man.JPG" width="270" height="300" alt="hero banner" class="img-cover">
+        <img src="/public/images/one man.JPG" width="270" height="300" alt="hero banner" class="img-cover">
       </div>
 
       <div class="img-holder two" style="--width: 240; --height: 370;">
-        <img src="/images/one guy.JPG" width="240" height="370" alt="hero banner" class="img-cover">
+        <img src="/public/images/one guy.JPG" width="240" height="370" alt="hero banner" class="img-cover">
       </div>
 
       
 
-      <!-- <img src="/assets/images/hero-shape-2.png" width="622" height="551" alt="" class="shape hero-shape-2"> -->
+      <!-- <img src="/assets/public/images/hero-shape-2.png" width="622" height="551" alt="" class="shape hero-shape-2"> -->
 
     </figure>
 
@@ -290,17 +266,17 @@
     <figure class="about-banner">
 
       <div class="img-holder" style="--width: 520; --height: 370;">
-        <img src="/images/Hacked9.png" width="520" height="370" loading="lazy" alt="about banner"
+        <img src="/public/images/Hacked9.png" width="520" height="370" loading="lazy" alt="about banner"
           class="img-cover">
       </div>
 
-      <!-- <img src="./assets/images/about-shape-1.svg" width="360" height="420" loading="lazy" alt=""
+      <!-- <img src="./assets/public/images/about-shape-1.svg" width="360" height="420" loading="lazy" alt=""
         class="shape about-shape-1">
 
-      <img src="./assets/images/about-shape-2.svg" width="371" height="220" loading="lazy" alt=""
+      <img src="./assets/public/images/about-shape-2.svg" width="371" height="220" loading="lazy" alt=""
         class="shape about-shape-2"> -->
 
-      <!-- <img src="./assets/images/about-shape-3.png" width="722" height="528" loading="lazy" alt=""
+      <!-- <img src="./assets/public/images/about-shape-3.png" width="722" height="528" loading="lazy" alt=""
         class="shape about-shape-3"> -->
 
     </figure>
@@ -340,7 +316,7 @@
 
       </ul>
 
-      <!-- <img src="/assets/images/about-shape-4.svg" width="100" height="100" loading="lazy" alt=""
+      <!-- <img src="/assets/public/images/about-shape-4.svg" width="100" height="100" loading="lazy" alt=""
         class="shape about-shape-4"> -->
 
     </div>
@@ -350,18 +326,58 @@
 
 <div class="product-container">
 
-  <% courseData.forEach(function(product) { %>
   <div class="product-row">
-    <img src="<%= product.img %>" alt="Product 1" class="product-image">
+    <img src="/public/images/12x-removebg-preview.png" alt="Product 1" class="product-image">
     <div class="product-details">
-      <h3 class="product-title"><%= product.title %></h3>
-      <p class="product-description"><%= product.description %></p>
-      <span class="product-price">$<%= product.price %></span>
+      <h3 class="product-title">FrontEnd</h3>
+      <p class="product-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur voluptas commodi, doloremque distinctio, deleniti cupiditate modi doloribus odio tempore quas, corporis omnis. Dolore illum nihil molestias assumenda dolor? Sapiente, cupiditate.</p>
+      <span class="product-price">$500</span>
       <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
     </div>
   </div>
 
-  <% }); %>
+  <div class="product-row">
+    <img src="/public/images/12x-removebg-preview.png" alt="Product 1" class="product-image">
+    <div class="product-details">
+      <h3 class="product-title">FrontEnd</h3>
+      <p class="product-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur voluptas commodi, doloremque distinctio, deleniti cupiditate modi doloribus odio tempore quas, corporis omnis. Dolore illum nihil molestias assumenda dolor? Sapiente, cupiditate.</p>
+      <span class="product-price">$500</span>
+      <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
+    </div>
+  </div>
+
+  <div class="product-row">
+    <img src="/public/images/12x-removebg-preview.png" alt="Product 1" class="product-image">
+    <div class="product-details">
+      <h3 class="product-title">FrontEnd</h3>
+      <p class="product-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur voluptas commodi, doloremque distinctio, deleniti cupiditate modi doloribus odio tempore quas, corporis omnis. Dolore illum nihil molestias assumenda dolor? Sapiente, cupiditate.</p>
+      <span class="product-price">$500</span>
+      <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
+    </div>
+  </div>
+
+  <div class="product-row">
+    <img src="/public/images/12x-removebg-preview.png" alt="Product 1" class="product-image">
+    <div class="product-details">
+      <h3 class="product-title">FrontEnd</h3>
+      <p class="product-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur voluptas commodi, doloremque distinctio, deleniti cupiditate modi doloribus odio tempore quas, corporis omnis. Dolore illum nihil molestias assumenda dolor? Sapiente, cupiditate.</p>
+      <span class="product-price">$500</span>
+      <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
+    </div>
+  </div>
+
+
+
+  <div class="product-row">
+    <img src="/public/images/12x-removebg-preview.png" alt="Product 1" class="product-image">
+    <div class="product-details">
+      <h3 class="product-title">FrontEnd</h3>
+      <p class="product-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur voluptas commodi, doloremque distinctio, deleniti cupiditate modi doloribus odio tempore quas, corporis omnis. Dolore illum nihil molestias assumenda dolor? Sapiente, cupiditate.</p>
+      <span class="product-price">$500</span>
+      <button class="buy-button"> <a href="/course/<%= product.id %>">Buy Now</a> </button>
+    </div>
+  </div>
+
 
 
 
@@ -369,7 +385,9 @@
 
   
   </div>
-</div>
+
+    </article>
+  </main>
 
 
 
@@ -401,7 +419,7 @@
       </form>
       <div class="contact-right">
   
-       - <img src="/images/Hacked9.png" style=" width: 400px;"> 
+       - <img src="/public/images/Hacked9.png" style=" width: 400px;"> 
       </div>
   </div>
   
@@ -409,7 +427,7 @@
   
 </center>
 
-  <footer class="footer" style="background-image: url('/images/footer-bg.png')">
+  <footer class="footer" style="background-image: url('/public/images/footer-bg.png')">
 
     <div class="footer-top section">
       <div class="container grid-list">
@@ -417,7 +435,7 @@
         <div class="footer-brand">
 
           <a href="#" class="logo">
-            <img src="/images/Hacked9.png" width="162" height="50" alt="Hacked8 logo">
+            <img src="/public/images/Hacked9.png" width="162" height="50" alt="Hacked8 logo">
           </a>
 
           <p class="footer-brand-text">
