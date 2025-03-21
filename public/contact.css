@@ -155,13 +155,13 @@
     padding-left: 25px;
     font-weight: 500;
     color: #666;
-    border-radius: 50px;
+    border-radius: 10px;
     border: 1px solid #FFC700;
   }
   .contact-left textarea{
     height: 140px;
     padding-top: 15px;
-    border-radius: 20px;
+    border-radius: 10px;
    
   }
   .contact-input:focus{
@@ -180,7 +180,7 @@
     color: #fff;
     gap: 10px;
     border: none;
-    border-radius: 40px;
+    border-radius: 10px;
     background: linear-gradient(270deg,#ff994f,#FFC700);
    cursor: pointer;
   }
