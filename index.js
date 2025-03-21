@@ -381,6 +381,11 @@ app.get('/home', (req, res)=>{
     res.render('index', { user: req.session.user, courseData})
 })
 
+
+app.get('/landing', (req, res)=>{
+  res.render('landing', { user: req.session.user, courseData})
+})
+
 // Get all courses
 app.get('/courses', async(req, res) => {
   try {
