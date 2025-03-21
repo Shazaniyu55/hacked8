@@ -219,6 +219,7 @@ const signUp = async (req, res) => {
   
       createuser()
   
+      res.redirect('/dashboard');
      
     } catch (error) {
       console.error("Error during signup:", error);
